@@ -17,8 +17,29 @@ namespace FloresOlderr_Assignment5
         MediumData MD;
 
         private Pen medium_White_Pen;
-        SolidBrush medium_Brush = new SolidBrush(Color.Blue);
-        Font drawFont = new Font("Arial", 16);
+        SolidBrush medium_Default_White_Brush = new SolidBrush(Color.White);
+        SolidBrush medium_Input_Blue_Brush = new SolidBrush(Color.Blue);
+        SolidBrush medium_Black_Brush = new SolidBrush(Color.Black);
+
+        Font draw_Font_12_Bold = new Font("Arial", 12, FontStyle.Bold);
+        Font draw_Font_13_Bold = new Font("Arial", 13, FontStyle.Bold);
+        Font draw_Font_14_Bold = new Font("Arial", 14, FontStyle.Bold);
+        Font draw_Font_15_Bold = new Font("Arial", 15, FontStyle.Bold);
+        Font draw_Font_16_Bold = new Font("Arial", 16, FontStyle.Bold);
+        Font draw_Font_17_Bold = new Font("Arial", 17, FontStyle.Bold);
+        Font draw_Font_18_Bold = new Font("Arial", 18, FontStyle.Bold);
+        Font draw_Font_19_Bold = new Font("Arial", 19, FontStyle.Bold);
+
+        Font input_Font_12 = new Font("Arial", 12);
+        Font input_Font_13 = new Font("Arial", 13);
+        Font input_Font_14 = new Font("Arial", 14);
+        Font input_Font_15 = new Font("Arial", 15);
+        Font input_Font_16 = new Font("Arial", 16);
+        Font input_Font_17 = new Font("Arial", 17);
+        Font input_Font_18 = new Font("Arial", 18);
+        Font input_Font_19 = new Font("Arial", 19);
+
+        Pen blackPen = new Pen(Color.FromArgb(255, 0, 0, 0), 5);
 
         Random random = new Random();
         int rand;
@@ -244,7 +265,25 @@ namespace FloresOlderr_Assignment5
                     should_display_number[X, Y] = true;
                     if (number >= 1 && number < 1000)
                     {
-                        g.DrawString(number.ToString(), drawFont, medium_Brush, X * (width / 6), Y * (height / 6));
+                        // Required for erasing
+                        g.DrawString(number.ToString(), draw_Font_12_Bold, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
+                        g.DrawString(number.ToString(), draw_Font_13_Bold, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
+                        g.DrawString(number.ToString(), draw_Font_14_Bold, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
+                        g.DrawString(number.ToString(), draw_Font_15_Bold, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
+                        g.DrawString(number.ToString(), draw_Font_16_Bold, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
+                        g.DrawString(number.ToString(), draw_Font_17_Bold, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
+                        g.DrawString(number.ToString(), draw_Font_18_Bold, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
+                        //g.DrawString(number.ToString(), draw_Font_19_Bold, medium_Black_Brush, X * (width / 6), Y * (height / 6));
+                        g.DrawString(number.ToString(), input_Font_12, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
+                        g.DrawString(number.ToString(), input_Font_13, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
+                        g.DrawString(number.ToString(), input_Font_14, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
+                        g.DrawString(number.ToString(), input_Font_15, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
+                        g.DrawString(number.ToString(), input_Font_16, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
+                        g.DrawString(number.ToString(), input_Font_17, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
+                        g.DrawString(number.ToString(), input_Font_18, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
+                        //g.DrawString(number.ToString(), input_Font_19, medium_Black_Brush, X * (width / 6), Y * (height / 6));
+
+                        g.DrawString(number.ToString(), input_Font_14, medium_Input_Blue_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
                         if (X <= 4 && Y <= 4)
                         {
                             custom_summation_matrix[X, Y] = number;
@@ -328,7 +367,7 @@ namespace FloresOlderr_Assignment5
                     //should_show_number = random.Next(2);
                     if (custom_summation_matrix[x, y] > 0)
                     {
-                        g.DrawString(custom_summation_matrix[x, y] + "", drawFont, medium_Brush, screen_X, screen_Y);
+                        g.DrawString(custom_summation_matrix[x, y] + "", draw_Font_16_Bold, medium_Default_White_Brush, screen_X + 12, screen_Y + 12);
                     }
                 }
             }
@@ -341,7 +380,7 @@ namespace FloresOlderr_Assignment5
                 should_show_number = random.Next(2);
                 if (custom_right_edge[y] > 0)
                 {
-                    g.DrawString(custom_right_edge[y] + "", drawFont, medium_Brush, screen_X, screen_Y);
+                    g.DrawString(custom_right_edge[y] + "", input_Font_14, medium_Default_White_Brush, screen_X, screen_Y);
                 }
             }
 
@@ -352,7 +391,7 @@ namespace FloresOlderr_Assignment5
                 should_show_number = random.Next(2);
                 if (custom_bottom_edge[x] > 0)
                 {
-                    g.DrawString(custom_bottom_edge[x] + "", drawFont, medium_Brush, screen_X, screen_Y);
+                    g.DrawString(custom_bottom_edge[x] + "", draw_Font_16_Bold, medium_Default_White_Brush, screen_X, screen_Y);
                 }
             }
 
