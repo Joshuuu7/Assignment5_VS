@@ -40,6 +40,33 @@ namespace FloresOlderr_Assignment5
         int[] custom_right_edge = new int[5];
         int[] custom_bottom_edge = new int[5];
 
+        //public Medium_Form(MediumData MD)
+        //{
+        //    this.MD = MD;
+        //    Console.WriteLine("Successfully transferred the saved data");
+
+        //    summation_matrix = MD.medium_summation_matrix;
+        //    should_display_number = MD.should_display_number;
+        //    initially_displayed = MD.initially_displayed;
+
+        //    right_edge = MD.medium_right_edge;
+        //    bottom_edge = MD.medium_bottom_edge;
+
+        //    custom_summation_matrix = MD.medium_custom_summation_matrix;
+
+        //    custom_right_edge = MD.medium_custom_right_edge;
+
+        //    for (int x = 0; x < 5; x++)
+        //    {
+        //        Console.WriteLine("Custom Right Edge: " + custom_bottom_edge[x]);
+        //    }
+
+        //    custom_bottom_edge = MD.medium_custom_bottom_edge;
+
+        //    medium_White_Pen = new Pen(Color.White);
+        //    InitializeComponent();
+        //}
+
         public Medium_Form(MediumData MD)
         {
             this.MD = MD;
@@ -54,115 +81,106 @@ namespace FloresOlderr_Assignment5
 
             custom_summation_matrix = MD.medium_custom_summation_matrix;
 
-            custom_right_edge = MD.medium_custom_right_edge;
-
-            for (int x = 0; x < 5; x++)
-            {
-                Console.WriteLine("Custom Right Edge: " + custom_bottom_edge[x]);
-            }
-
-            custom_bottom_edge = MD.medium_custom_bottom_edge;
-
             medium_White_Pen = new Pen(Color.White);
             InitializeComponent();
         }
 
-        public Medium_Form()
-        {
-            for (int x = 0; x < 5; x++)
-            {
-                for (int y = 0; y < 5; y++)
-                {
-                    summation_matrix[x, y] = random.Next(5, 100);                   
-                }
-            }
+        //public Medium_Form()
+        //{
+        //    for (int x = 0; x < 5; x++)
+        //    {
+        //        for (int y = 0; y < 5; y++)
+        //        {
+        //            summation_matrix[x, y] = random.Next(5, 100);                   
+        //        }
+        //    }
 
-            medium_White_Pen = new Pen(Color.White);
-            InitializeComponent();
+        //    medium_White_Pen = new Pen(Color.White);
+        //    InitializeComponent();
       
-            // Right Edge
-            for (uint y = 0; y < 5; y++)
-            {
-                int row_sum = 0;
-                for (uint x = 0; x < 5; x++)
-                {
-                    row_sum += summation_matrix[x, y];
-                }
-                right_edge[y] = row_sum;
-            }
+        //    // Right Edge
+        //    for (uint y = 0; y < 5; y++)
+        //    {
+        //        int row_sum = 0;
+        //        for (uint x = 0; x < 5; x++)
+        //        {
+        //            row_sum += summation_matrix[x, y];
+        //        }
+        //        right_edge[y] = row_sum;
+        //    }
 
-            // Bottom Edge
-            for (int x = 0; x < 5; x++)
-            {
-                int col_sum = 0;
-                for (int y = 0; y < 5; y++)
-                {
-                    col_sum += summation_matrix[x, y];
-                }
-                bottom_edge[x] = col_sum;
-            }
+        //    // Bottom Edge
+        //    for (int x = 0; x < 5; x++)
+        //    {
+        //        int col_sum = 0;
+        //        for (int y = 0; y < 5; y++)
+        //        {
+        //            col_sum += summation_matrix[x, y];
+        //        }
+        //        bottom_edge[x] = col_sum;
+        //    }
 
-            for (int u = 0; u < 5; u++)
-            {
+        //    for (int u = 0; u < 5; u++)
+        //    {
 
-                for (int v = 0; v < 5; v++)
-                {
-                    rand = random.Next(2);
-                    if (rand == 1)
-                    {
-                        should_display_number[u, v] = true;
-                        initially_displayed[u, v] = true;
-                        custom_summation_matrix[u, v] = summation_matrix[u, v];
-                    }
-                    else
-                    {
-                        should_display_number[u, v] = false;
-                        initially_displayed[u, v] = false;
-                    }
-                }
-            }
+        //        for (int v = 0; v < 5; v++)
+        //        {
+        //            rand = random.Next(2);
+        //            if (rand == 1)
+        //            {
+        //                should_display_number[u, v] = true;
+        //                initially_displayed[u, v] = true;
+        //                custom_summation_matrix[u, v] = summation_matrix[u, v];
+        //            }
+        //            else
+        //            {
+        //                should_display_number[u, v] = false;
+        //                initially_displayed[u, v] = false;
+        //            }
+        //        }
+        //    }
 
-            for (int u = 0; u < 5; u++)
-            {
-                rand = random.Next(2);
-                if (rand == 1)
-                {
-                    should_display_number[5, u] = true;
-                }
-                else
-                {
-                    should_display_number[5, u] = false;
-                }
-            }
+        //    for (int u = 0; u < 5; u++)
+        //    {
+        //        rand = random.Next(2);
+        //        if (rand == 1)
+        //        {
+        //            should_display_number[5, u] = true;
+        //        }
+        //        else
+        //        {
+        //            should_display_number[5, u] = false;
+        //        }
+        //    }
 
-            for (int v = 0; v < 5; v++)
-            {
-                rand = random.Next(2);
-                if (rand == 1)
-                {
-                    should_display_number[v, 5] = true;
-                }
-                else
-                {
-                    should_display_number[v, 5] = false;
-                }
-            }
-            for (int u = 0; u < 5; u++)
-            {
-                if (should_display_number[u, 5])
-                {                  
-                    custom_right_edge[u] = right_edge[u];
-                }
-            }
+        //    for (int v = 0; v < 5; v++)
+        //    {
+        //        rand = random.Next(2);
+        //        if (rand == 1)
+        //        {
+        //            should_display_number[v, 5] = true;
+        //        }
+        //        else
+        //        {
+        //            should_display_number[v, 5] = false;
+        //        }
+        //    }
+        //    for (int u = 0; u < 5; u++)
+        //    {
+        //        if (should_display_number[u, 5])
+        //        {                  
+        //            custom_right_edge[u] = right_edge[u];
+        //        }
+        //    }
 
-            for (int v = 0; v < 5; v++)
-            {
-                if (should_display_number[5, v])
-                {
-                    custom_bottom_edge[v] = bottom_edge[v];
-                }
-            }
-        }
+        //    for (int v = 0; v < 5; v++)
+        //    {
+        //        if (should_display_number[5, v])
+        //        {
+        //            custom_bottom_edge[v] = bottom_edge[v];
+        //        }
+        //    }
+        //}         
 
         private void UpdateVisibleGrid(int x, int y, int number)
         {
@@ -381,7 +399,7 @@ namespace FloresOlderr_Assignment5
             Form1 form1 = new Form1(MD);
 
 
-            Medium_Form medium_Form = new Medium_Form();
+            Medium_Form medium_Form = new Medium_Form(MD);
             form1.Show();
             this.Hide();
             medium_Form.Close();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,12 +15,80 @@ namespace FloresOlderr_Assignment5
     {
         private static Pen myWhitePen;
 
-        public static MediumData mediumData;
+        MediumData mediumData;
 
         public Form1()
-        {           
+        {
+
+            mediumData = new MediumData();
             myWhitePen = new Pen(Color.White);
-            InitializeComponent();           
+
+            string digits = "0123456789";
+
+            StringBuilder file_data_builder = new StringBuilder();
+            using (StreamReader inFile = new StreamReader("medium/m1.txt"))
+            {
+                while (!inFile.EndOfStream)
+                {
+                    char ch = (char)inFile.Read();
+                    Console.WriteLine("ch = " + ch);
+                    if (digits.IndexOf(ch) == -1)
+                    {
+                        file_data_builder.Append('$');
+                        Console.WriteLine(file_data_builder);
+                    }
+                    else
+                    {
+                        file_data_builder.Append(ch);
+                        Console.WriteLine(file_data_builder);
+                    }
+                }
+            }
+
+            StringBuilder digitsOnly = new StringBuilder();
+
+            foreach (char cha in file_data_builder.ToString().ToCharArray())
+            {
+                if (digits.IndexOf(cha) >= 0)
+                {
+                    digitsOnly.Append(cha);
+                }
+            }
+
+            Console.WriteLine("digitsOnly " + digitsOnly.ToString());
+
+            char[] file_chars = digitsOnly.ToString().ToCharArray();
+
+            int len = file_chars.Length;
+
+            int r = 0;
+
+            while (r < len)
+            {
+                if (r < len / 2)
+                {
+                    if (file_chars[r] > 48)
+                        mediumData.initially_displayed[r / 5, r % 5] = true;
+                    mediumData.medium_custom_summation_matrix[r / 5, r % 5] = file_chars[r] - 48;
+                }
+                else
+                {
+                    int t = r - (len / 2);
+                    mediumData.medium_summation_matrix[t / 5, t % 5] = file_chars[r] - 48;
+                }
+                r++;
+            }
+
+            InitializeComponent();
+
+            for (int u = 0; u < 5; u++)
+            {
+                for (int v = 0; v < 5; v++)
+                {
+                    Console.WriteLine("medium_custom_summation_matrix : " + mediumData.medium_custom_summation_matrix[u, v]);
+                    Console.WriteLine("medium_summation_matrix: " + mediumData.medium_summation_matrix[u, v]);
+                }
+            }
         }
 
         public Form1(MediumData MD)
@@ -44,64 +113,12 @@ namespace FloresOlderr_Assignment5
                 form1.Close();
             }
             else if (MediumRB.Checked)
-            {
-                //Console.WriteLine("Here is the Form1.mediumData.medium_summation_matrix[i, j]: ");
-                //for (int i = 0; i < 5; i++)
-                //{
-                //    for(int j = 0; j < 0; j++)
-                //    {
-                //        Console.WriteLine(Form1.mediumData.medium_summation_matrix[i, j] + " ");
-                //        Console.WriteLine(Form1.mediumData.medium_custom_summation_matrix[i, j] + " ");
-                //    }
-                //}                
-
-                //if (Form1.mediumData.medium_Form == null)
-                //{
-                //    //Console.WriteLine("Here is the uninitiazed Form1.mediumData.medium_summation_matrix[i, j]: ");
-                //    //for (int i = 0; i < 5; i++)
-                //    //{
-                //    //    for (int j = 0; j < 0; j++)
-                //    //    {
-                //    //        Console.WriteLine(Form1.mediumData.medium_summation_matrix[i, j] + " ");
-                //    //        Console.WriteLine(Form1.mediumData.medium_custom_summation_matrix[i, j] + " ");
-                //    //    }
-                //    //}
-                //    Medium_Form medium_Form = new Medium_Form();
-                //    medium_Form.Show();
-                //    this.Hide();
-                //    form1.Close();
-                //}
-                //else
-                //{
-                //    //Console.WriteLine("Here is the initalized Form1.mediumData.medium_summation_matrix[i, j]: ");
-                //    //for (int i = 0; i < 5; i++)
-                //    //{
-                //    //    for (int j = 0; j < 0; j++)
-                //    //    {
-                //    //        Console.WriteLine(Form1.mediumData.medium_summation_matrix[i, j] + " ");
-                //    //        Console.WriteLine(Form1.mediumData.medium_custom_summation_matrix[i, j] + " ");
-                //    //    }
-                //    //}
-                //    Medium_Form medium_Form = Form1.mediumData.medium_Form;
-                //    medium_Form.Show();
-                //    this.Hide();
-                //    form1.Close();
-                //} 
-
-                if(mediumData == null)
-                {
-                    Medium_Form medium_Form = new Medium_Form();
-                    medium_Form.Show();
-                    this.Hide();
-                    form1.Close();
-                }
-                else
-                {
+            {              
                     Medium_Form medium_Form = new Medium_Form(mediumData);
                     medium_Form.Show();
                     this.Hide();
                     form1.Close();
-                }
+                
             }
             else if (HardRB.Checked)
             {
@@ -111,6 +128,7 @@ namespace FloresOlderr_Assignment5
                 form1.Close();
             }
         }
+        
     }
 
     public class MediumData
@@ -130,7 +148,15 @@ namespace FloresOlderr_Assignment5
 
         public MediumData( )
         {
+            medium_summation_matrix = new int[6, 6];
+            medium_custom_summation_matrix = new int[6, 6]; 
+            medium_right_edge = new int[5];
 
+            medium_bottom_edge = new int[5];
+
+
+            should_display_number = new bool[6, 6];
+            initially_displayed = new bool[6, 6];
         }
     }
 }
