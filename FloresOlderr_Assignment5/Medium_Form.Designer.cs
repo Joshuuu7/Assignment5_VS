@@ -34,6 +34,8 @@
             this.Back_Button = new System.Windows.Forms.Button();
             this.Reset_Button = new System.Windows.Forms.Button();
             this.MediumTimerTextBox = new System.Windows.Forms.TextBox();
+            this.ProgressButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Medium_Playing_Field)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,7 +68,7 @@
             // 
             // Back_Button
             // 
-            this.Back_Button.Location = new System.Drawing.Point(640, 260);
+            this.Back_Button.Location = new System.Drawing.Point(640, 331);
             this.Back_Button.Name = "Back_Button";
             this.Back_Button.Size = new System.Drawing.Size(75, 23);
             this.Back_Button.TabIndex = 5;
@@ -82,20 +84,41 @@
             this.Reset_Button.TabIndex = 6;
             this.Reset_Button.Text = "Reset";
             this.Reset_Button.UseVisualStyleBackColor = true;
+            this.Reset_Button.Click += new System.EventHandler(this.Reset_Button_Click);
             // 
             // MediumTimerTextBox
             // 
-            this.MediumTimerTextBox.Location = new System.Drawing.Point(600, 13);
+            this.MediumTimerTextBox.Location = new System.Drawing.Point(603, 12);
             this.MediumTimerTextBox.Name = "MediumTimerTextBox";
-            this.MediumTimerTextBox.Size = new System.Drawing.Size(119, 20);
+            this.MediumTimerTextBox.Size = new System.Drawing.Size(100, 20);
             this.MediumTimerTextBox.TabIndex = 7;
-            this.MediumTimerTextBox.TextChanged += new System.EventHandler(this.MediumTimerTextBox_TextChanged);
+            // 
+            // ProgressButton
+            // 
+            this.ProgressButton.Location = new System.Drawing.Point(518, 200);
+            this.ProgressButton.Name = "ProgressButton";
+            this.ProgressButton.Size = new System.Drawing.Size(75, 23);
+            this.ProgressButton.TabIndex = 8;
+            this.ProgressButton.Text = "Progress";
+            this.ProgressButton.UseVisualStyleBackColor = true;
+            this.ProgressButton.Click += new System.EventHandler(this.ProgressButton_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(637, 302);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(92, 13);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "This will aslo save";
             // 
             // Medium_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.ProgressButton);
             this.Controls.Add(this.MediumTimerTextBox);
             this.Controls.Add(this.Reset_Button);
             this.Controls.Add(this.Back_Button);
@@ -118,5 +141,7 @@
         private System.Windows.Forms.Button Back_Button;
         private System.Windows.Forms.Button Reset_Button;
         private System.Windows.Forms.TextBox MediumTimerTextBox;
+        private System.Windows.Forms.Button ProgressButton;
+        private System.Windows.Forms.Label label1;
     }
 }

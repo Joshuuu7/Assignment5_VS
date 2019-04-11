@@ -15,6 +15,8 @@ namespace FloresOlderr_Assignment5
     public partial class Medium_Form : Form
     {
         MediumData MD;
+        MediumData MD2;
+        MediumData MD3;
 
         private Pen medium_White_Pen;
 
@@ -22,26 +24,14 @@ namespace FloresOlderr_Assignment5
         System.Diagnostics.Stopwatch stopWatch = new System.Diagnostics.Stopwatch();
 
         SolidBrush medium_Default_White_Brush = new SolidBrush(Color.White);
+        SolidBrush medium_Correct_Green_Brush = new SolidBrush(Color.Green);
+        SolidBrush medium_Incorrect_Red_Brush = new SolidBrush(Color.Red);
         SolidBrush medium_Input_Blue_Brush = new SolidBrush(Color.Blue);
         SolidBrush medium_Black_Brush = new SolidBrush(Color.Black);
+        SolidBrush medium_Cyan_Brush = new SolidBrush(Color.Cyan);
 
-        Font draw_Font_12_Bold = new Font("Arial", 12, FontStyle.Bold);
-        Font draw_Font_13_Bold = new Font("Arial", 13, FontStyle.Bold);
         Font draw_Font_14_Bold = new Font("Arial", 14, FontStyle.Bold);
-        Font draw_Font_15_Bold = new Font("Arial", 15, FontStyle.Bold);
-        Font draw_Font_16_Bold = new Font("Arial", 16, FontStyle.Bold);
-        Font draw_Font_17_Bold = new Font("Arial", 17, FontStyle.Bold);
-        Font draw_Font_18_Bold = new Font("Arial", 18, FontStyle.Bold);
-        Font draw_Font_19_Bold = new Font("Arial", 19, FontStyle.Bold);
-
-        Font input_Font_12 = new Font("Arial", 12);
-        Font input_Font_13 = new Font("Arial", 13);
         Font input_Font_14 = new Font("Arial", 14);
-        Font input_Font_15 = new Font("Arial", 15);
-        Font input_Font_16 = new Font("Arial", 16);
-        Font input_Font_17 = new Font("Arial", 17);
-        Font input_Font_18 = new Font("Arial", 18);
-        Font input_Font_19 = new Font("Arial", 19);
 
         Pen blackPen = new Pen(Color.FromArgb(255, 0, 0, 0), 5);
 
@@ -95,6 +85,8 @@ namespace FloresOlderr_Assignment5
         public Medium_Form(MediumData MD)
         {
             this.MD = MD;
+            this.MD2 = MD2;
+            this.MD3 = MD3;
 
             //StartTimer();
 
@@ -113,9 +105,7 @@ namespace FloresOlderr_Assignment5
             medium_White_Pen = new Pen(Color.White);
 
             InitializeComponent();
-
-
-        }
+        }        
 
         //public Medium_Form()
         //{
@@ -129,7 +119,7 @@ namespace FloresOlderr_Assignment5
 
         //    medium_White_Pen = new Pen(Color.White);
         //    InitializeComponent();
-      
+
         //    // Right Edge
         //    for (uint y = 0; y < 5; y++)
         //    {
@@ -242,6 +232,7 @@ namespace FloresOlderr_Assignment5
             int width = Medium_Playing_Field.Width;
             int height = Medium_Playing_Field.Height;
 
+            #region MouseLocator
             if (e.X < width / 6)
                 X = 0;
             else if (e.X < ((2 * width) / 6))
@@ -267,50 +258,52 @@ namespace FloresOlderr_Assignment5
                 Y = 4;
             else
                 Y = 5;
-            
+            #endregion
+
             if (MediumTextBox.Text != "" && Regex.IsMatch(MediumTextBox.Text, @"^\d+$") && MediumTextBox.Text != "0" )
             {
+                string[] numbers_array = new string[100]; 
+               
                 int number = Convert.ToInt32(MediumTextBox.Text);
                 if (!initially_displayed[X, Y])
                 {
                     should_display_number[X, Y] = true;
                     if (number >= 1 && number < 100)
                     {
-
-                        // Required for erasing
-                        g.DrawString(number.ToString(), draw_Font_12_Bold, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
-                        g.DrawString(number.ToString(), draw_Font_13_Bold, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
-                        g.DrawString(number.ToString(), draw_Font_14_Bold, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
-                        g.DrawString(number.ToString(), draw_Font_15_Bold, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
-                        g.DrawString(number.ToString(), draw_Font_16_Bold, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
-                        g.DrawString(number.ToString(), draw_Font_17_Bold, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
-                        g.DrawString(number.ToString(), draw_Font_18_Bold, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
-                        //g.DrawString(number.ToString(), draw_Font_19_Bold, medium_Black_Brush, X * (width / 6), Y * (height / 6));
-                        g.DrawString(number.ToString(), input_Font_12, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
-                        g.DrawString(number.ToString(), input_Font_13, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
-                        g.DrawString(number.ToString(), input_Font_14, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
-                        g.DrawString(number.ToString(), input_Font_15, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
-                        g.DrawString(number.ToString(), input_Font_16, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
-                        g.DrawString(number.ToString(), input_Font_17, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
-                        g.DrawString(number.ToString(), input_Font_18, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
-                        //g.DrawString(number.ToString(), input_Font_19, medium_Black_Brush, X * (width / 6), Y * (height / 6));
-
-                        g.DrawString(number.ToString(), input_Font_14, medium_Input_Blue_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
+                        // Loop necessary for deletion of every number, in case user changes his mind
+                        for (int i = 0; i < 100; i++)
+                        {
+                            numbers_array[i] = i.ToString();
+                            // Required for erasing                          
+                            g.DrawString(numbers_array[i], draw_Font_14_Bold, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);     
+                            g.DrawString(numbers_array[i], input_Font_14, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
+                        }
+                        //g.DrawString(number.ToString(), input_Font_14, medium_Input_Blue_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
 
                         Console.WriteLine("Custom in DRAW: " + custom_summation_matrix[X, Y]);
                         Console.WriteLine("REG in DRAW: " + summation_matrix[X, Y]);
                         if (X <= 4 && Y <= 4)
                         {
-                            custom_summation_matrix[X, Y] = number;
-                            if (summation_matrix[X, Y] == number)
+                            custom_summation_matrix[Y, X] = number;
+                            if (summation_matrix[Y, X] == number)
                             {
-
-                                MessageBox.Show("GETTING CLOSE!", "HOT", MessageBoxButtons.OK);
+                                g.DrawString(number.ToString(), input_Font_14, medium_Correct_Green_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
+                                MessageBox.Show("Getting Close!", "HOT", MessageBoxButtons.OK);
                                 
                                 if (custom_summation_matrix.OfType<int>().SequenceEqual(summation_matrix.OfType<int>()))
                                 {
-                                    MessageBox.Show("You Won the Game!", "Success", MessageBoxButtons.OK);
+                                    //medium_Timer.Stop(); 
+                                    //stopWatch.Stop();
+
+                                    MessageBox.Show("You Won the Game! " +
+                                        "/n Completion time: "  
+                                        , "SUCCESS", MessageBoxButtons.OK);
+
                                 }
+                            }
+                            else
+                            {
+                                g.DrawString(number.ToString(), input_Font_14, medium_Incorrect_Red_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
                             }
                             LookAtSolution();
                             //CheckSolution();
@@ -329,13 +322,12 @@ namespace FloresOlderr_Assignment5
             }
             else
             {
-                DisplayAlert("Please make sure to enter integers only.", "ERROR");
+                MessageBox.Show("Please make sure to enter integers only.", "ERROR", MessageBoxButtons.OK);
             }
-        }
+        }  
 
         public void LookAtSolution()
-        {
-            
+        {            
             //int row_sum = 0;
             for (int x = 0; x < 5; x++)
             {
@@ -366,7 +358,6 @@ namespace FloresOlderr_Assignment5
                     Console.WriteLine("You just solved a row! Congratulations.");
                 }
             }
-
             for (int y = 0; y < 5; y++)
             {
                 int col_sum = 0;
@@ -396,12 +387,7 @@ namespace FloresOlderr_Assignment5
                 }
                 Console.WriteLine("col_cum(" + y + "): " + col_sum);
                 Console.WriteLine("desired_col_cum(" + y + "): "+ desired_col_sum);
-            }
-            //if (  custom_summation_matrix == summation_matrix )
-            //{
-            //    MessageBox.Show("You won the game!", "SUCCESS", MessageBoxButtons.OK);
-            //    Console.WriteLine("You won the game!");
-            //}            
+            }          
         }
 
         //bool CheckSolution()
@@ -445,9 +431,33 @@ namespace FloresOlderr_Assignment5
             //MessageBox.Show(string.Format(message), type, MessageBoxButtons.OK);
         }
 
+        void Initialize_Edge(int u, int v)
+        {
+            //int u, v;
+            for (u = 0; u < 5; u++)
+            {
+                int row_sum = 0;
+                for (v = 0; v < 5; v++)
+                {
+                    row_sum += summation_matrix[v, u];
+                    //Console.WriteLine("row_sum so far is " + row_sum);
+                }
+                right_edge[u] = row_sum;
+            }
+
+            for (v = 0; v < 5; v++)
+            {
+                int col_sum = 0;
+                for (u = 0; u < 5; u++)
+                {
+                    col_sum += summation_matrix[v, u];
+                }
+                bottom_edge[v] = col_sum;
+            }
+        }
+
         private void Medium_Playing_Field_Draw(object sender, PaintEventArgs e)
         {
-
             Graphics g = e.Graphics;
 
             int screen_X; int screen_Y;
@@ -463,36 +473,14 @@ namespace FloresOlderr_Assignment5
                     screen_Y = y * (Medium_Playing_Field.Height / 6);
                     //summation_matrix[x, y] = random.Next(5, 100);
                     //should_show_number = random.Next(2);
-                    if (custom_summation_matrix[x, y] > 0)
+                    if (custom_summation_matrix[y, x] > 0)
                     {                
-                        g.DrawString(custom_summation_matrix[x, y] + "", input_Font_14, medium_Default_White_Brush, screen_X + 12, screen_Y + 12);
-                        Console.WriteLine("custom_summation_matrix: " + custom_summation_matrix[x, y]);
+                        g.DrawString(custom_summation_matrix[y, x] + "", input_Font_14, medium_Default_White_Brush, screen_X + 12, screen_Y + 12);
+                        Initialize_Edge(y, x);
+                        Console.WriteLine("custom_summation_matrix: " + custom_summation_matrix[y, x]);
                     }
                 }
             }
-
-            //screen_X = (Medium_Playing_Field.Width * 5) / 6;
-
-            //for (int y = 0; y < 5; y++)
-            //{
-            //    screen_Y = y * (Medium_Playing_Field.Height / 6);
-            //    should_show_number = random.Next(2);
-            //    if (custom_right_edge[y] > 0)
-            //    {
-            //        g.DrawString(custom_right_edge[y] + "", input_Font_14, medium_Default_White_Brush, screen_X, screen_Y);
-            //    }
-            //}
-
-            //screen_Y = (Medium_Playing_Field.Height * 5) / 6;
-            //for (int x = 0; x < 5; x++)
-            //{
-            //    screen_X = x * (Medium_Playing_Field.Width / 6);
-            //    should_show_number = random.Next(2);
-            //    if (custom_bottom_edge[x] > 0)
-            //    {
-            //        g.DrawString(custom_bottom_edge[x] + "", draw_Font_16_Bold, medium_Default_White_Brush, screen_X, screen_Y);
-            //    }
-            //}
 
             screen_X = (Medium_Playing_Field.Width * 5) / 6;
 
@@ -500,10 +488,9 @@ namespace FloresOlderr_Assignment5
             {
                 screen_Y = y * (Medium_Playing_Field.Height / 6);
                 //should_show_number = random.Next(2);
-                if (right_edge[y] > 0)
+                if (custom_right_edge[y] > 0)
                 {
-                    g.DrawString(right_edge[y] + "", draw_Font_14_Bold, medium_Default_White_Brush, screen_X, screen_Y);
-                    Console.WriteLine("Right Edge(" + y + "): " + right_edge[y]);
+                    g.DrawString(custom_right_edge[y] + "", draw_Font_14_Bold, medium_Default_White_Brush, screen_X, screen_Y);
                 }
             }
 
@@ -512,12 +499,36 @@ namespace FloresOlderr_Assignment5
             {
                 screen_X = x * (Medium_Playing_Field.Width / 6);
                 //should_show_number = random.Next(2);
-                if (bottom_edge[x] > 0)
+                if (custom_bottom_edge[x] > 0)
                 {
-                    g.DrawString("4" + "", draw_Font_14_Bold, medium_Default_White_Brush, screen_X, screen_Y);
-                    Console.WriteLine("Bottom Edge(" + x + "): " + bottom_edge[x]);
+                    g.DrawString(custom_bottom_edge[x] + "", draw_Font_14_Bold, medium_Default_White_Brush, screen_X, screen_Y);
                 }
             }
+
+            //screen_X = (Medium_Playing_Field.Width * 5) / 6;
+
+            //for (int y = 0; y < 5; y++)
+            //{
+            //    screen_Y = y * (Medium_Playing_Field.Height / 6);
+            //    //should_show_number = random.Next(2);
+            //    if (right_edge[y] > 0)
+            //    {
+            //        g.DrawString(right_edge[y] + "", draw_Font_14_Bold, medium_Default_White_Brush, screen_X, screen_Y);
+            //        Console.WriteLine("Right Edge(" + y + "): " + right_edge[y]);
+            //    }
+            //}
+
+            //screen_Y = (Medium_Playing_Field.Height * 5) / 6;
+            //for (int x = 0; x < 5; x++)
+            //{
+            //    screen_X = x * (Medium_Playing_Field.Width / 6);
+            //    //should_show_number = random.Next(2);
+            //    if (bottom_edge[x] > 0)
+            //    {
+            //        g.DrawString("4" + "", draw_Font_14_Bold, medium_Default_White_Brush, screen_X, screen_Y);
+            //        Console.WriteLine("Bottom Edge(" + x + "): " + bottom_edge[x]);
+            //    }
+        //}
 
             g.DrawLine(medium_White_Pen, (Medium_Playing_Field.Width * 1 / 6), 0,
                                    (Medium_Playing_Field.Width * 1 / 6), Medium_Playing_Field.Height);
@@ -558,23 +569,21 @@ namespace FloresOlderr_Assignment5
 
             MD.medium_custom_right_edge = custom_right_edge;
             MD.medium_custom_bottom_edge = custom_bottom_edge;
-
+            
             Form1 form1 = new Form1(MD);
 
-            medium_Timer.Stop();
+            //medium_Timer.Stop();
+            //stopWatch.Stop();
             Medium_Form medium_Form = new Medium_Form(MD);
             form1.Show();
             this.Hide();
             medium_Form.Close();
         }
 
-        private void MediumTimerTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-            MediumTimerTextBox.Text = "Timer";
-                //StartTimer();
-        }
-
+        //private void MediumTimerTextBox_TextChanged(object sender, EventArgs e)
+        //{
+        //    MediumTimerTextBox.Text = StartTimer();
+        //}
         //string StartTimer()
         //{
         //    medium_Timer = new System.Windows.Forms.Timer();
@@ -590,7 +599,85 @@ namespace FloresOlderr_Assignment5
         //    ts.Hours, ts.Minutes, ts.Seconds);
 
         //    return elapsedTime;
-
         //}
+
+        private void Reset_Button_Click(object sender, EventArgs e)
+        {
+            int[,] original_custom_summation_matrix = new int[6, 6];
+            Graphics g = Medium_Playing_Field.CreateGraphics();
+            SolidBrush paintItBlack = new SolidBrush(Color.Black);
+
+            g.FillRectangle(paintItBlack, 0, 0, Medium_Playing_Field.Width, Medium_Playing_Field.Height);
+
+            int screen_X; int screen_Y;
+
+            for (int x = 0; x < 5; x++)
+            {
+                screen_X = x * (Medium_Playing_Field.Width / 6);
+                for (int y = 0; y < 5; y++)
+                {
+                    screen_Y = y * (Medium_Playing_Field.Height / 6);
+
+                    if (custom_summation_matrix[y, x] != summation_matrix[y,x])
+                    {
+                        
+                    }
+                    else
+                    {
+                        g.DrawString(custom_summation_matrix[y, x] + "", input_Font_14, medium_Default_White_Brush, screen_X + 12, screen_Y + 12);
+                    }
+                }
+            }
+
+            g.DrawLine(medium_White_Pen, (Medium_Playing_Field.Width * 1 / 6), 0,
+                                   (Medium_Playing_Field.Width * 1 / 6), Medium_Playing_Field.Height);
+            g.DrawLine(medium_White_Pen, (Medium_Playing_Field.Width * 2 / 6), 0,
+                                   (Medium_Playing_Field.Width * 2 / 6), Medium_Playing_Field.Height);
+            g.DrawLine(medium_White_Pen, (Medium_Playing_Field.Width * 3 / 6), 0,
+                                   (Medium_Playing_Field.Width * 3 / 6), Medium_Playing_Field.Height);
+            g.DrawLine(medium_White_Pen, (Medium_Playing_Field.Width * 4 / 6), 0,
+                                   (Medium_Playing_Field.Width * 4 / 6), Medium_Playing_Field.Height);
+            g.DrawLine(medium_White_Pen, (Medium_Playing_Field.Width * 5 / 6), 0,
+                                   (Medium_Playing_Field.Width * 5 / 6), Medium_Playing_Field.Height);
+
+            g.DrawLine(medium_White_Pen, 0, (Medium_Playing_Field.Height * 1 / 6),
+                                   Medium_Playing_Field.Width, (Medium_Playing_Field.Height * 1 / 6));
+            g.DrawLine(medium_White_Pen, 0, (Medium_Playing_Field.Height * 2 / 6),
+                                   Medium_Playing_Field.Width, (Medium_Playing_Field.Height * 2 / 6));
+            g.DrawLine(medium_White_Pen, 0, (Medium_Playing_Field.Height * 3 / 6),
+                                   Medium_Playing_Field.Width, (Medium_Playing_Field.Height * 3 / 6));
+            g.DrawLine(medium_White_Pen, 0, (Medium_Playing_Field.Height * 4 / 6),
+                                   Medium_Playing_Field.Width, (Medium_Playing_Field.Height * 4 / 6));
+            g.DrawLine(medium_White_Pen, 0, (Medium_Playing_Field.Height * 5 / 6),
+                                   Medium_Playing_Field.Width, (Medium_Playing_Field.Height * 5 / 6));
+        }
+
+        private void ProgressButton_Click(object sender, EventArgs e)
+        {
+            int width = Medium_Playing_Field.Width;
+            int height = Medium_Playing_Field.Height;
+            Graphics g = Medium_Playing_Field.CreateGraphics();
+            string[] numbers_array = new string[100];
+            
+            //g.DrawString(number.ToString(), input_Font_14, medium_Input_Blue_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
+            for (int x = 0; x < 5; x++)
+            {
+                for (int y  = 0; y < 5; y++)
+                {
+                    if (custom_summation_matrix[y, x] == summation_matrix[y, x])
+                    {
+                        for (int i = 0; i < 100; i++)
+                        {
+                            numbers_array[i] = i.ToString();
+                            // Required for erasing                          
+                            g.DrawString(numbers_array[i], draw_Font_14_Bold, medium_Black_Brush, (x * (width / 6)) + 12, (y * (height / 6)) + 12);
+                            g.DrawString(numbers_array[i], input_Font_14, medium_Black_Brush, (x * (width / 6)) + 12, (y * (height / 6)) + 12);
+                        }
+                        g.DrawString(custom_summation_matrix[y, x] + "", input_Font_14, medium_Cyan_Brush, (x * (width / 6)) + 12, (y * (height / 6)) + 12);
+
+                    }
+                }
+            }
+        }
     }
 }

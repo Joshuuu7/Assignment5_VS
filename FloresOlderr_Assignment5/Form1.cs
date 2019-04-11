@@ -15,12 +15,17 @@ namespace FloresOlderr_Assignment5
     {
         private static Pen myWhitePen;
 
-        MediumData mediumData;
+        MediumData mediumData1;
+        MediumData mediumData2;
+        MediumData mediumData3;
 
         public Form1()
         {
 
-            mediumData = new MediumData();
+            mediumData1 = new MediumData();
+            mediumData2 = new MediumData();
+            mediumData3 = new MediumData();
+
             myWhitePen = new Pen(Color.White);
 
             string digits = "0123456789";
@@ -28,84 +33,288 @@ namespace FloresOlderr_Assignment5
             StringBuilder file_data_builder = new StringBuilder();
             StringBuilder solution = new StringBuilder();
 
-            using (StreamReader inFile = new StreamReader("medium/m1.txt"))
-            {
-                while (!inFile.EndOfStream)
+                using (StreamReader inFile = new StreamReader("medium/m1.txt"))
                 {
-                    char ch = (char)inFile.Read();
-                    //Console.WriteLine("ch = " + ch);
-                    if (digits.IndexOf(ch) == -1)
+                    while (!inFile.EndOfStream)
                     {
-                        file_data_builder.Append('$');
-                        Console.WriteLine(file_data_builder);
-                        if(file_data_builder.Equals("$$"))
+                        char ch = (char)inFile.Read();
+                        //Console.WriteLine("ch = " + ch);
+                        if (digits.IndexOf(ch) == -1)
                         {
+                            file_data_builder.Append('$');
+                            Console.WriteLine(file_data_builder);
+                            if (file_data_builder.Equals("$$"))
+                            {
 
+                            }
                         }
+                        else
+                        {
+                            file_data_builder.Append(ch);
+                            //Console.WriteLine(file_data_builder);
+                        }
+                    }
+                }
+
+                StringBuilder digitsOnly = new StringBuilder();
+
+                foreach (char cha in file_data_builder.ToString().ToCharArray())
+                {
+                    if (digits.IndexOf(cha) >= 0)
+                    {
+                        digitsOnly.Append(cha);
+                    }
+                }
+
+                //Console.WriteLine("digitsOnly " + digitsOnly.ToString());
+
+                char[] file_chars = digitsOnly.ToString().ToCharArray();
+
+                int len = file_chars.Length;
+
+                int r = 0;
+
+                while (r < len)
+                {
+                    if (r < len / 2)
+                    {
+                        if (file_chars[r] > 48)
+                        {
+                            mediumData1.initially_displayed[r / 5, r % 5] = true;
+                            //Console.WriteLine("Custom (In IF IF): " + mediumData.initially_displayed[r / 5, r % 5]);
+                        }
+
+                        mediumData1.medium_custom_summation_matrix[r / 5, r % 5] = file_chars[r] - 48;
+                        //Console.WriteLine("Custom (In IF): " + mediumData.medium_custom_summation_matrix[r / 5, r % 5]);
                     }
                     else
                     {
-                        file_data_builder.Append(ch);
-                        //Console.WriteLine(file_data_builder);
+                        int t = r - (len / 2);
+                        mediumData1.medium_summation_matrix[t / 5, t % 5] = file_chars[r] - 48;
+                        //Console.WriteLine("Normal (In ELSE): " + mediumData.medium_summation_matrix[t / 5, t % 5]);
                     }
+                    r++;
                 }
-            }
 
-            StringBuilder digitsOnly = new StringBuilder();
+                InitializeComponent();
 
-            foreach (char cha in file_data_builder.ToString().ToCharArray())
-            {
-                if (digits.IndexOf(cha) >= 0)
-                {
-                    digitsOnly.Append(cha);
-                }
-            }
+            //if (mediumData1.solved == false && mediumData2.solved == false && mediumData3.solved == false)
+            //{
+            //    using (StreamReader inFile = new StreamReader("medium/m1.txt"))
+            //    {
+            //        while (!inFile.EndOfStream)
+            //        {
+            //            char ch = (char)inFile.Read();
+            //            //Console.WriteLine("ch = " + ch);
+            //            if (digits.IndexOf(ch) == -1)
+            //            {
+            //                file_data_builder.Append('$');
+            //                Console.WriteLine(file_data_builder);
+            //                if (file_data_builder.Equals("$$"))
+            //                {
 
-            //Console.WriteLine("digitsOnly " + digitsOnly.ToString());
+            //                }
+            //            }
+            //            else
+            //            {
+            //                file_data_builder.Append(ch);
+            //                //Console.WriteLine(file_data_builder);
+            //            }
+            //        }
+            //    }
 
-            char[] file_chars = digitsOnly.ToString().ToCharArray();
+            //    StringBuilder digitsOnly = new StringBuilder();
 
-            int len = file_chars.Length;
+            //    foreach (char cha in file_data_builder.ToString().ToCharArray())
+            //    {
+            //        if (digits.IndexOf(cha) >= 0)
+            //        {
+            //            digitsOnly.Append(cha);
+            //        }
+            //    }
 
-            int r = 0;
+            //    //Console.WriteLine("digitsOnly " + digitsOnly.ToString());
 
-            while (r < len)
-            {
-                if (r < len / 2)
-                {
-                    if (file_chars[r] > 48)
-                    {
-                        mediumData.initially_displayed[r / 5, r % 5] = true;
-                        //Console.WriteLine("Custom (In IF IF): " + mediumData.initially_displayed[r / 5, r % 5]);
-                    }
+            //    char[] file_chars = digitsOnly.ToString().ToCharArray();
 
-                    mediumData.medium_custom_summation_matrix[r / 5, r % 5] = file_chars[r] - 48;
-                    //Console.WriteLine("Custom (In IF): " + mediumData.medium_custom_summation_matrix[r / 5, r % 5]);
-                }
-                else
-                {
-                    int t = r - (len / 2);
-                    mediumData.medium_summation_matrix[t / 5, t % 5] = file_chars[r] - 48;
-                    //Console.WriteLine("Normal (In ELSE): " + mediumData.medium_summation_matrix[t / 5, t % 5]);
-                }
-                r++;
-            }
+            //    int len = file_chars.Length;
 
-            InitializeComponent();
+            //    int r = 0;
+
+            //    while (r < len)
+            //    {
+            //        if (r < len / 2)
+            //        {
+            //            if (file_chars[r] > 48)
+            //            {
+            //                mediumData1.initially_displayed[r / 5, r % 5] = true;
+            //                //Console.WriteLine("Custom (In IF IF): " + mediumData.initially_displayed[r / 5, r % 5]);
+            //            }
+
+            //            mediumData1.medium_custom_summation_matrix[r / 5, r % 5] = file_chars[r] - 48;
+            //            //Console.WriteLine("Custom (In IF): " + mediumData.medium_custom_summation_matrix[r / 5, r % 5]);
+            //        }
+            //        else
+            //        {
+            //            int t = r - (len / 2);
+            //            mediumData1.medium_summation_matrix[t / 5, t % 5] = file_chars[r] - 48;
+            //            //Console.WriteLine("Normal (In ELSE): " + mediumData.medium_summation_matrix[t / 5, t % 5]);
+            //        }
+            //        r++;
+            //    }
+
+            //    InitializeComponent();
+            //}
+
+            //else if(mediumData1.solved && mediumData2.solved == false && mediumData3.solved == false)
+            //{
+            //    using (StreamReader inFile = new StreamReader("medium/m2.txt"))
+            //    {
+            //        while (!inFile.EndOfStream)
+            //        {
+            //            char ch = (char)inFile.Read();
+            //            //Console.WriteLine("ch = " + ch);
+            //            if (digits.IndexOf(ch) == -1)
+            //            {
+            //                file_data_builder.Append('$');
+            //                Console.WriteLine(file_data_builder);
+            //                if (file_data_builder.Equals("$$"))
+            //                {
+
+            //                }
+            //            }
+            //            else
+            //            {
+            //                file_data_builder.Append(ch);
+            //                //Console.WriteLine(file_data_builder);
+            //            }
+            //        }
+            //    }
+
+            //    StringBuilder digitsOnly = new StringBuilder();
+
+            //    foreach (char cha in file_data_builder.ToString().ToCharArray())
+            //    {
+            //        if (digits.IndexOf(cha) >= 0)
+            //        {
+            //            digitsOnly.Append(cha);
+            //        }
+            //    }
+
+            //    //Console.WriteLine("digitsOnly " + digitsOnly.ToString());
+
+            //    char[] file_chars = digitsOnly.ToString().ToCharArray();
+
+            //    int len = file_chars.Length;
+
+            //    int r = 0;
+
+            //    while (r < len)
+            //    {
+            //        if (r < len / 2)
+            //        {
+            //            if (file_chars[r] > 48)
+            //            {
+            //                mediumData1.initially_displayed[r / 5, r % 5] = true;
+            //                //Console.WriteLine("Custom (In IF IF): " + mediumData.initially_displayed[r / 5, r % 5]);
+            //            }
+
+            //            mediumData1.medium_custom_summation_matrix[r / 5, r % 5] = file_chars[r] - 48;
+            //            //Console.WriteLine("Custom (In IF): " + mediumData.medium_custom_summation_matrix[r / 5, r % 5]);
+            //        }
+            //        else
+            //        {
+            //            int t = r - (len / 2);
+            //            mediumData1.medium_summation_matrix[t / 5, t % 5] = file_chars[r] - 48;
+            //            //Console.WriteLine("Normal (In ELSE): " + mediumData.medium_summation_matrix[t / 5, t % 5]);
+            //        }
+            //        r++;
+            //    }
+
+            //    InitializeComponent();
+            //}
+
+            //else if(mediumData1.solved && mediumData2.solved && mediumData3.solved == false)
+            //{
+            //    using (StreamReader inFile = new StreamReader("medium/m3.txt"))
+            //    {
+            //        while (!inFile.EndOfStream)
+            //        {
+            //            char ch = (char)inFile.Read();
+            //            //Console.WriteLine("ch = " + ch);
+            //            if (digits.IndexOf(ch) == -1)
+            //            {
+            //                file_data_builder.Append('$');
+            //                Console.WriteLine(file_data_builder);
+            //                if (file_data_builder.Equals("$$"))
+            //                {
+
+            //                }
+            //            }
+            //            else
+            //            {
+            //                file_data_builder.Append(ch);
+            //                //Console.WriteLine(file_data_builder);
+            //            }
+            //        }
+            //    }
+
+            //    StringBuilder digitsOnly = new StringBuilder();
+
+            //    foreach (char cha in file_data_builder.ToString().ToCharArray())
+            //    {
+            //        if (digits.IndexOf(cha) >= 0)
+            //        {
+            //            digitsOnly.Append(cha);
+            //        }
+            //    }
+
+            //    //Console.WriteLine("digitsOnly " + digitsOnly.ToString());
+
+            //    char[] file_chars = digitsOnly.ToString().ToCharArray();
+
+            //    int len = file_chars.Length;
+
+            //    int r = 0;
+
+            //    while (r < len)
+            //    {
+            //        if (r < len / 2)
+            //        {
+            //            if (file_chars[r] > 48)
+            //            {
+            //                mediumData1.initially_displayed[r / 5, r % 5] = true;
+            //                //Console.WriteLine("Custom (In IF IF): " + mediumData.initially_displayed[r / 5, r % 5]);
+            //            }
+
+            //            mediumData1.medium_custom_summation_matrix[r / 5, r % 5] = file_chars[r] - 48;
+            //            //Console.WriteLine("Custom (In IF): " + mediumData.medium_custom_summation_matrix[r / 5, r % 5]);
+            //        }
+            //        else
+            //        {
+            //            int t = r - (len / 2);
+            //            mediumData1.medium_summation_matrix[t / 5, t % 5] = file_chars[r] - 48;
+            //            //Console.WriteLine("Normal (In ELSE): " + mediumData.medium_summation_matrix[t / 5, t % 5]);
+            //        }
+            //        r++;
+            //    }
+
+            //    InitializeComponent();
+            //}
 
             for (int u = 0; u < 5; u++)
             {
                 for (int v = 0; v < 5; v++)
                 {
-                    Console.WriteLine("medium_custom_summation_matrix : " + mediumData.medium_custom_summation_matrix[u, v]);
-                    Console.WriteLine("medium_summation_matrix: " + mediumData.medium_summation_matrix[u, v]);
+                    Console.WriteLine("medium_custom_summation_matrix : " + mediumData1.medium_custom_summation_matrix[u, v]);
+                    Console.WriteLine("medium_summation_matrix: " + mediumData1.medium_summation_matrix[u, v]);
                 }
             }
         }
 
         public Form1(MediumData MD)
         {
-            mediumData = MD;         
+            mediumData1 = MD;         
             myWhitePen = new Pen(Color.White);
             InitializeComponent();
         }
@@ -126,8 +335,8 @@ namespace FloresOlderr_Assignment5
             }
             else if (MediumRB.Checked)
             {
-                Medium_Form medium_Form = new Medium_Form(mediumData);
-                medium_Form.Show();
+                Medium_Form medium_Form1 = new Medium_Form(mediumData1);
+                medium_Form1.Show();
                 this.Hide();
                 form1.Close();
 
@@ -147,6 +356,7 @@ namespace FloresOlderr_Assignment5
     {
         public Medium_Form medium_Form;
         public bool created;
+        public bool solved; 
 
         public int[,] medium_summation_matrix;
         public int[,] medium_custom_summation_matrix;
