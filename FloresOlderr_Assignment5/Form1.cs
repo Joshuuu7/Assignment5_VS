@@ -26,21 +26,27 @@ namespace FloresOlderr_Assignment5
             string digits = "0123456789";
 
             StringBuilder file_data_builder = new StringBuilder();
+            StringBuilder solution = new StringBuilder();
+
             using (StreamReader inFile = new StreamReader("medium/m1.txt"))
             {
                 while (!inFile.EndOfStream)
                 {
                     char ch = (char)inFile.Read();
-                    Console.WriteLine("ch = " + ch);
+                    //Console.WriteLine("ch = " + ch);
                     if (digits.IndexOf(ch) == -1)
                     {
                         file_data_builder.Append('$');
                         Console.WriteLine(file_data_builder);
+                        if(file_data_builder.Equals("$$"))
+                        {
+
+                        }
                     }
                     else
                     {
                         file_data_builder.Append(ch);
-                        Console.WriteLine(file_data_builder);
+                        //Console.WriteLine(file_data_builder);
                     }
                 }
             }
@@ -55,7 +61,7 @@ namespace FloresOlderr_Assignment5
                 }
             }
 
-            Console.WriteLine("digitsOnly " + digitsOnly.ToString());
+            //Console.WriteLine("digitsOnly " + digitsOnly.ToString());
 
             char[] file_chars = digitsOnly.ToString().ToCharArray();
 
@@ -68,13 +74,19 @@ namespace FloresOlderr_Assignment5
                 if (r < len / 2)
                 {
                     if (file_chars[r] > 48)
+                    {
                         mediumData.initially_displayed[r / 5, r % 5] = true;
+                        //Console.WriteLine("Custom (In IF IF): " + mediumData.initially_displayed[r / 5, r % 5]);
+                    }
+
                     mediumData.medium_custom_summation_matrix[r / 5, r % 5] = file_chars[r] - 48;
+                    //Console.WriteLine("Custom (In IF): " + mediumData.medium_custom_summation_matrix[r / 5, r % 5]);
                 }
                 else
                 {
                     int t = r - (len / 2);
                     mediumData.medium_summation_matrix[t / 5, t % 5] = file_chars[r] - 48;
+                    //Console.WriteLine("Normal (In ELSE): " + mediumData.medium_summation_matrix[t / 5, t % 5]);
                 }
                 r++;
             }
@@ -113,12 +125,12 @@ namespace FloresOlderr_Assignment5
                 form1.Close();
             }
             else if (MediumRB.Checked)
-            {              
-                    Medium_Form medium_Form = new Medium_Form(mediumData);
-                    medium_Form.Show();
-                    this.Hide();
-                    form1.Close();
-                
+            {
+                Medium_Form medium_Form = new Medium_Form(mediumData);
+                medium_Form.Show();
+                this.Hide();
+                form1.Close();
+
             }
             else if (HardRB.Checked)
             {
@@ -146,6 +158,8 @@ namespace FloresOlderr_Assignment5
         public bool [,] should_display_number;
         public bool [,] initially_displayed;
 
+        string medium_stop_watch;
+
         public MediumData( )
         {
             medium_summation_matrix = new int[6, 6];
@@ -157,6 +171,11 @@ namespace FloresOlderr_Assignment5
 
             should_display_number = new bool[6, 6];
             initially_displayed = new bool[6, 6];
+
+            medium_custom_right_edge = new int[5];
+            medium_custom_bottom_edge = new int[5];
+
+            //medium_stop_watch = Medium_Stop_Watch;
         }
     }
 }

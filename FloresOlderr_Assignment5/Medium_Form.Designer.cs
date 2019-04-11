@@ -33,6 +33,7 @@
             this.MediumTextBoxLabel = new System.Windows.Forms.Label();
             this.Back_Button = new System.Windows.Forms.Button();
             this.Reset_Button = new System.Windows.Forms.Button();
+            this.MediumTimerTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.Medium_Playing_Field)).BeginInit();
             this.SuspendLayout();
             // 
@@ -82,11 +83,20 @@
             this.Reset_Button.Text = "Reset";
             this.Reset_Button.UseVisualStyleBackColor = true;
             // 
+            // MediumTimerTextBox
+            // 
+            this.MediumTimerTextBox.Location = new System.Drawing.Point(600, 13);
+            this.MediumTimerTextBox.Name = "MediumTimerTextBox";
+            this.MediumTimerTextBox.Size = new System.Drawing.Size(119, 20);
+            this.MediumTimerTextBox.TabIndex = 7;
+            this.MediumTimerTextBox.TextChanged += new System.EventHandler(this.MediumTimerTextBox_TextChanged);
+            // 
             // Medium_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.MediumTimerTextBox);
             this.Controls.Add(this.Reset_Button);
             this.Controls.Add(this.Back_Button);
             this.Controls.Add(this.MediumTextBoxLabel);
@@ -107,5 +117,6 @@
         private System.Windows.Forms.Label MediumTextBoxLabel;
         private System.Windows.Forms.Button Back_Button;
         private System.Windows.Forms.Button Reset_Button;
+        private System.Windows.Forms.TextBox MediumTimerTextBox;
     }
 }

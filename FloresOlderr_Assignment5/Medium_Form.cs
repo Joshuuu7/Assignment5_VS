@@ -17,6 +17,10 @@ namespace FloresOlderr_Assignment5
         MediumData MD;
 
         private Pen medium_White_Pen;
+
+        System.Windows.Forms.Timer medium_Timer = null;
+        System.Diagnostics.Stopwatch stopWatch = new System.Diagnostics.Stopwatch();
+
         SolidBrush medium_Default_White_Brush = new SolidBrush(Color.White);
         SolidBrush medium_Input_Blue_Brush = new SolidBrush(Color.Blue);
         SolidBrush medium_Black_Brush = new SolidBrush(Color.Black);
@@ -91,7 +95,8 @@ namespace FloresOlderr_Assignment5
         public Medium_Form(MediumData MD)
         {
             this.MD = MD;
-            Console.WriteLine("Successfully transferred the saved data");
+
+            //StartTimer();
 
             summation_matrix = MD.medium_summation_matrix;
             should_display_number = MD.should_display_number;
@@ -102,8 +107,14 @@ namespace FloresOlderr_Assignment5
 
             custom_summation_matrix = MD.medium_custom_summation_matrix;
 
+            custom_bottom_edge = MD.medium_custom_bottom_edge;
+            custom_right_edge = MD.medium_custom_right_edge;
+
             medium_White_Pen = new Pen(Color.White);
+
             InitializeComponent();
+
+
         }
 
         //public Medium_Form()
@@ -224,7 +235,7 @@ namespace FloresOlderr_Assignment5
 
         private void Update_Medium_Form_Click(object sender, MouseEventArgs e)
         {
-            Graphics g = Medium_Playing_Field.CreateGraphics();
+            Graphics g = Medium_Playing_Field.CreateGraphics();           
 
             int X = 0;
             int Y = 0;
@@ -257,14 +268,15 @@ namespace FloresOlderr_Assignment5
             else
                 Y = 5;
             
-            if (MediumTextBox.Text != "" && Regex.IsMatch(MediumTextBox.Text, @"^\d+$"))
+            if (MediumTextBox.Text != "" && Regex.IsMatch(MediumTextBox.Text, @"^\d+$") && MediumTextBox.Text != "0" )
             {
                 int number = Convert.ToInt32(MediumTextBox.Text);
                 if (!initially_displayed[X, Y])
                 {
                     should_display_number[X, Y] = true;
-                    if (number >= 1 && number < 1000)
+                    if (number >= 1 && number < 100)
                     {
+
                         // Required for erasing
                         g.DrawString(number.ToString(), draw_Font_12_Bold, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
                         g.DrawString(number.ToString(), draw_Font_13_Bold, medium_Black_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
@@ -284,15 +296,29 @@ namespace FloresOlderr_Assignment5
                         //g.DrawString(number.ToString(), input_Font_19, medium_Black_Brush, X * (width / 6), Y * (height / 6));
 
                         g.DrawString(number.ToString(), input_Font_14, medium_Input_Blue_Brush, (X * (width / 6)) + 12, (Y * (height / 6)) + 12);
+
+                        Console.WriteLine("Custom in DRAW: " + custom_summation_matrix[X, Y]);
+                        Console.WriteLine("REG in DRAW: " + summation_matrix[X, Y]);
                         if (X <= 4 && Y <= 4)
                         {
                             custom_summation_matrix[X, Y] = number;
-                            CheckSolution();
-                            if (!CheckSolution())
+                            if (summation_matrix[X, Y] == number)
                             {
-                                custom_summation_matrix[X, Y] = 0;
-                                ClearCell(X, Y);
+
+                                MessageBox.Show("GETTING CLOSE!", "HOT", MessageBoxButtons.OK);
+                                
+                                if (custom_summation_matrix.OfType<int>().SequenceEqual(summation_matrix.OfType<int>()))
+                                {
+                                    MessageBox.Show("You Won the Game!", "Success", MessageBoxButtons.OK);
+                                }
                             }
+                            LookAtSolution();
+                            //CheckSolution();
+                            //if (!CheckSolution())
+                            //{
+                            //    custom_summation_matrix[X, Y] = 0;
+                            //    ClearCell(X, Y);                                
+                            //}
                         }
                     }
                     else
@@ -307,32 +333,104 @@ namespace FloresOlderr_Assignment5
             }
         }
 
-        bool CheckSolution()
+        public void LookAtSolution()
         {
-            int u, v;
-            for (u = 0; u < 5; u ++)
-            {                        
-                int desired_row_sum = bottom_edge[u];
-                if (desired_row_sum == 0)
-                {
-                    continue;
-                }
+            
+            //int row_sum = 0;
+            for (int x = 0; x < 5; x++)
+            {
                 int row_sum = 0;
-                for (v = 0; v < 5; v++)
+                bool all_filled = true;
+                int desired_row_sum = right_edge[x];
+                for (int y = 0; y < 5; y++)
                 {
-                    row_sum += custom_summation_matrix[u, v];
+                    row_sum += custom_summation_matrix[x, y];
+                    if (custom_summation_matrix[x, y] == 0)
+                    {
+                        all_filled = false;
+                    }
                 }
-                if (row_sum  > desired_row_sum)
+                Console.WriteLine("row_sum(" + x +  "): " + row_sum);
+                Console.WriteLine("desired_row_cum(" + x + "): " + desired_row_sum);
+                if (row_sum > desired_row_sum)
                 {
-                    DisplayAlert("You entered too high of a value!", "Error");
-                    return false;
-                } else if (row_sum == desired_row_sum)
+                    DisplayAlert("You entered values too high. Please lower your choices.", "ERROR");
+                }
+                else if (all_filled && row_sum < desired_row_sum)
                 {
-                    DisplayAlert("Good!", "Success");
-                }                
+                    DisplayAlert("You didn't enter values high enough. Please raise your choices.", "ERROR");
+                }
+                else if (all_filled && row_sum == desired_row_sum)
+                {
+                    DisplayAlert("You just solved a row! Congratulations.", "SUCCESS");
+                    Console.WriteLine("You just solved a row! Congratulations.");
+                }
             }
-            return true;
+
+            for (int y = 0; y < 5; y++)
+            {
+                int col_sum = 0;
+                bool all_filled = true;
+                int desired_col_sum = bottom_edge[y];
+                for (int x = 0; x < 5; x++)
+                {
+                    col_sum += custom_summation_matrix[x, y];
+                    if (custom_summation_matrix[x, y] == 0)
+                    {
+                        all_filled = false;
+                        
+                    }
+                }
+                if (col_sum > desired_col_sum)
+                {
+                    DisplayAlert("You entered values too high. Please lower your choices.", "ERROR");
+                }
+                else if (all_filled && col_sum < desired_col_sum)
+                {
+                    DisplayAlert("You didn't enter values high enough. Please raise your choices.", "ERROR");
+                }
+                else if (all_filled && col_sum == desired_col_sum)
+                {
+                    DisplayAlert("You just solved a column! Congratulations.", "SUCCESS");
+                    Console.WriteLine("You solved a column!");
+                }
+                Console.WriteLine("col_cum(" + y + "): " + col_sum);
+                Console.WriteLine("desired_col_cum(" + y + "): "+ desired_col_sum);
+            }
+            //if (  custom_summation_matrix == summation_matrix )
+            //{
+            //    MessageBox.Show("You won the game!", "SUCCESS", MessageBoxButtons.OK);
+            //    Console.WriteLine("You won the game!");
+            //}            
         }
+
+        //bool CheckSolution()
+        //{
+        //    int u, v;
+        //    for (u = 0; u < 5; u++)
+        //    {
+        //        int desired_row_sum = bottom_edge[u];
+        //        if (desired_row_sum == 0)
+        //        {
+        //            continue;
+        //        }
+        //        int row_sum = 0;
+        //        for (v = 0; v < 5; v++)
+        //        {
+        //            row_sum += custom_summation_matrix[u, v];
+        //        }
+        //        if (row_sum > desired_row_sum)
+        //        {
+        //            DisplayAlert("You entered too high of a value!", "Error");
+        //            return false;
+        //        }
+        //        else if (row_sum == desired_row_sum)
+        //        {
+        //            DisplayAlert("Good!", "Success");
+        //        }
+        //    }
+        //    return true;
+        //}
 
         void ClearCell(int x, int y)
         {
@@ -344,7 +442,7 @@ namespace FloresOlderr_Assignment5
 
         void DisplayAlert(string message, string type)
         {
-            MessageBox.Show(string.Format(message), type, MessageBoxButtons.OK);
+            //MessageBox.Show(string.Format(message), type, MessageBoxButtons.OK);
         }
 
         private void Medium_Playing_Field_Draw(object sender, PaintEventArgs e)
@@ -354,8 +452,8 @@ namespace FloresOlderr_Assignment5
 
             int screen_X; int screen_Y;
 
-            Random random = new Random();
-            int should_show_number = random.Next(2);
+            //Random random = new Random();
+            //int should_show_number = random.Next(2);
 
             for (int x = 0; x < 5; x++)
             {
@@ -366,21 +464,46 @@ namespace FloresOlderr_Assignment5
                     //summation_matrix[x, y] = random.Next(5, 100);
                     //should_show_number = random.Next(2);
                     if (custom_summation_matrix[x, y] > 0)
-                    {
-                        g.DrawString(custom_summation_matrix[x, y] + "", draw_Font_16_Bold, medium_Default_White_Brush, screen_X + 12, screen_Y + 12);
+                    {                
+                        g.DrawString(custom_summation_matrix[x, y] + "", input_Font_14, medium_Default_White_Brush, screen_X + 12, screen_Y + 12);
+                        Console.WriteLine("custom_summation_matrix: " + custom_summation_matrix[x, y]);
                     }
                 }
             }
+
+            //screen_X = (Medium_Playing_Field.Width * 5) / 6;
+
+            //for (int y = 0; y < 5; y++)
+            //{
+            //    screen_Y = y * (Medium_Playing_Field.Height / 6);
+            //    should_show_number = random.Next(2);
+            //    if (custom_right_edge[y] > 0)
+            //    {
+            //        g.DrawString(custom_right_edge[y] + "", input_Font_14, medium_Default_White_Brush, screen_X, screen_Y);
+            //    }
+            //}
+
+            //screen_Y = (Medium_Playing_Field.Height * 5) / 6;
+            //for (int x = 0; x < 5; x++)
+            //{
+            //    screen_X = x * (Medium_Playing_Field.Width / 6);
+            //    should_show_number = random.Next(2);
+            //    if (custom_bottom_edge[x] > 0)
+            //    {
+            //        g.DrawString(custom_bottom_edge[x] + "", draw_Font_16_Bold, medium_Default_White_Brush, screen_X, screen_Y);
+            //    }
+            //}
 
             screen_X = (Medium_Playing_Field.Width * 5) / 6;
 
             for (int y = 0; y < 5; y++)
             {
                 screen_Y = y * (Medium_Playing_Field.Height / 6);
-                should_show_number = random.Next(2);
-                if (custom_right_edge[y] > 0)
+                //should_show_number = random.Next(2);
+                if (right_edge[y] > 0)
                 {
-                    g.DrawString(custom_right_edge[y] + "", input_Font_14, medium_Default_White_Brush, screen_X, screen_Y);
+                    g.DrawString(right_edge[y] + "", draw_Font_14_Bold, medium_Default_White_Brush, screen_X, screen_Y);
+                    Console.WriteLine("Right Edge(" + y + "): " + right_edge[y]);
                 }
             }
 
@@ -388,10 +511,11 @@ namespace FloresOlderr_Assignment5
             for (int x = 0; x < 5; x++)
             {
                 screen_X = x * (Medium_Playing_Field.Width / 6);
-                should_show_number = random.Next(2);
-                if (custom_bottom_edge[x] > 0)
+                //should_show_number = random.Next(2);
+                if (bottom_edge[x] > 0)
                 {
-                    g.DrawString(custom_bottom_edge[x] + "", draw_Font_16_Bold, medium_Default_White_Brush, screen_X, screen_Y);
+                    g.DrawString("4" + "", draw_Font_14_Bold, medium_Default_White_Brush, screen_X, screen_Y);
+                    Console.WriteLine("Bottom Edge(" + x + "): " + bottom_edge[x]);
                 }
             }
 
@@ -437,11 +561,36 @@ namespace FloresOlderr_Assignment5
 
             Form1 form1 = new Form1(MD);
 
-
+            medium_Timer.Stop();
             Medium_Form medium_Form = new Medium_Form(MD);
             form1.Show();
             this.Hide();
             medium_Form.Close();
         }
+
+        private void MediumTimerTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+            MediumTimerTextBox.Text = "Timer";
+                //StartTimer();
+        }
+
+        //string StartTimer()
+        //{
+        //    medium_Timer = new System.Windows.Forms.Timer();
+        //    medium_Timer.Interval = 1000;
+        //    medium_Timer.Tick += new EventHandler(MediumTimerTextBox_TextChanged);
+        //    medium_Timer.Enabled = true;
+        //    medium_Timer.Start();
+
+        //    stopWatch.Start();
+        //    TimeSpan ts = stopWatch.Elapsed;
+
+        //    string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}",
+        //    ts.Hours, ts.Minutes, ts.Seconds);
+
+        //    return elapsedTime;
+
+        //}
     }
 }
