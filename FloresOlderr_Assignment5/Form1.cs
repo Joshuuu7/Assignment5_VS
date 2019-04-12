@@ -100,11 +100,9 @@ namespace FloresOlderr_Assignment5
                 while (!easy_inFile.EndOfStream)
                 {
                     char ch = (char)easy_inFile.Read();
-                    //Console.WriteLine("ch = " + ch);
                     if (easy_digits.IndexOf(ch) == -1)
                     {
                         easy_file_data_builder.Append('$');
-                        Console.WriteLine(easy_file_data_builder);
                         if (easy_file_data_builder.Equals("$$"))
                         {
 
@@ -113,7 +111,6 @@ namespace FloresOlderr_Assignment5
                     else
                     {
                         easy_file_data_builder.Append(ch);
-                        //Console.WriteLine(file_data_builder);
                     }
                 }
             }
@@ -141,20 +138,13 @@ namespace FloresOlderr_Assignment5
                     if (easy_file_chars[easy_r] > 48)
                     {
                         easyData1.initially_displayed[easy_r / 3, easy_r % 3] = true;
-                        //Console.WriteLine("Custom (In IF IF): " + mediumData.initially_displayed[r / 5, r % 5]);
                     }
-
                     easyData1.easy_custom_summation_matrix[easy_r / 3, easy_r % 3] = easy_file_chars[easy_r] - 48;
-
-                    easyData1.easy_original_summation_matrix[easy_r / 3, easy_r % 3] = easy_file_chars[easy_r] - 48;
-
-                    //Console.WriteLine("Custom (In IF): " + mediumData.medium_custom_summation_matrix[r / 5, r % 5]);
                 }
                 else
                 {
                     int easy_t = easy_r - (easy_len / 2);
                     easyData1.easy_summation_matrix[easy_t / 3, easy_t % 3] = easy_file_chars[easy_r] - 48;
-                    //Console.WriteLine("Normal (In ELSE): " + mediumData.medium_summation_matrix[t / 5, t % 5]);
                 }
                 easy_r++;
             }
@@ -170,11 +160,9 @@ namespace FloresOlderr_Assignment5
                 while (!med_inFile.EndOfStream)
                 {
                     char ch = (char)med_inFile.Read();
-                    //Console.WriteLine("ch = " + ch);
                     if (med_digits.IndexOf(ch) == -1)
                     {
                         med_file_data_builder.Append('$');
-                        Console.WriteLine(med_file_data_builder);
                         if (med_file_data_builder.Equals("$$"))
                         {
 
@@ -183,7 +171,6 @@ namespace FloresOlderr_Assignment5
                     else
                     {
                         med_file_data_builder.Append(ch);
-                        //Console.WriteLine(file_data_builder);
                     }
                 }
             }
@@ -211,20 +198,16 @@ namespace FloresOlderr_Assignment5
                     if (med_file_chars[med_r] > 48)
                     {
                         mediumData1.initially_displayed[med_r / 5, med_r % 5] = true;
-                        //Console.WriteLine("Custom (In IF IF): " + mediumData.initially_displayed[r / 5, r % 5]);
                     }
                     
                     mediumData1.medium_custom_summation_matrix[med_r / 5, med_r % 5] = med_file_chars[med_r] - 48;
 
                     mediumData1.medium_original_summation_matrix[med_r / 5, med_r % 5] = med_file_chars[med_r] - 48;
-
-                    //Console.WriteLine("Custom (In IF): " + mediumData.medium_custom_summation_matrix[r / 5, r % 5]);
                 }
                 else
                 {
                     int med_t = med_r - (med_len / 2);
                     mediumData1.medium_summation_matrix[med_t / 5, med_t % 5] = med_file_chars[med_r] - 48;
-                    //Console.WriteLine("Normal (In ELSE): " + mediumData.medium_summation_matrix[t / 5, t % 5]);
                 }
                 med_r++;
             }
@@ -242,11 +225,9 @@ namespace FloresOlderr_Assignment5
                 while (!hard_inFile.EndOfStream)
                 {
                     char ch = (char)hard_inFile.Read();
-                    //Console.WriteLine("ch = " + ch);
                     if (hard_digits.IndexOf(ch) == -1)
                     {
                         hard_file_data_builder.Append('$');
-                        Console.WriteLine(hard_file_data_builder);
                         if (hard_file_data_builder.Equals("$$"))
                         {
 
@@ -298,59 +279,23 @@ namespace FloresOlderr_Assignment5
         }
 
         public Form1(EasyData ED)
-        {
-            if(easyData1.solved == true)
-                RemakePuzzle();
+        {            
             easyData1 = ED;
             myWhitePen = new Pen(Color.White);
             InitializeComponent();
         }        
         public Form1(MediumData MD)
         {
-            if (MD.solved == true)
-                RemakePuzzle();
             mediumData1 = MD;
             myWhitePen = new Pen(Color.White);
             InitializeComponent();
         }
         public Form1(HardData HD)
         {
-            if(hardData1.solved == true)
-                RemakePuzzle();
             hardData1 = HD;
             myWhitePen = new Pen(Color.White);
             InitializeComponent();
         }
-
-        void RemakePuzzle()
-        {
-            string file_easy = "";
-            string file_medium = "";
-            string file_hard = "";
-
-            Random random = new Random();
-            int rand = random.Next(3);
-
-            switch(rand)
-            {
-                case 0:
-                    file_easy = "easy/e1.txt";
-                    file_medium = "medium/m1.txt";
-                    file_hard = "hard/h1.txt";
-                    break;
-                case 1:
-                    file_easy = "easy/e2.txt";
-                    file_medium = "medium/m2.txt";
-                    file_hard = "hard/h2.txt";
-                    break;
-                case 2:
-                    file_easy = "easy/e3.txt";
-                    file_medium = "medium/m3.txt";
-                    file_hard = "hard/h3.txt";
-                    break;
-            }
-        }
-
 
         private void Choose_Difficulty_Playing_Field(object sender, MouseEventArgs e)
         {

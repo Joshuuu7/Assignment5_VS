@@ -142,6 +142,21 @@ namespace FloresOlderr_Assignment5
                                    Easy_Playing_Field.Width, (Easy_Playing_Field.Height * 2 / 3));
         }
 
+        void EraseNumbers(int X, int Y)
+        {
+            Graphics g = Easy_Playing_Field.CreateGraphics();
+            int width = Easy_Playing_Field.Width;
+            int height = Easy_Playing_Field.Height;
+            int[] numbers_array = new int[100];
+            for (int i = 0; i < 100; i++)
+            {
+                numbers_array[i] = i;
+                // Required for erasing                          
+                g.DrawString(numbers_array[i].ToString(), draw_Font_14_Bold, easy_Black_Brush, (X * (width / 4)) + 12, (Y * (height / 4)) + 12);
+                g.DrawString(numbers_array[i].ToString(), input_Font_14, easy_Black_Brush, (X * (width / 4)) + 12, (Y * (height / 4)) + 12);
+            }
+        }
+
         private void Reset_Button_Click(object sender, EventArgs e)
         {
             int[,] original_custom_summation_matrix = new int[4, 4];
