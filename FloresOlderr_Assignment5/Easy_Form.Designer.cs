@@ -33,6 +33,9 @@
             this.Back_Button = new System.Windows.Forms.Button();
             this.EasyTextBox = new System.Windows.Forms.TextBox();
             this.EasyTextBoxLabel = new System.Windows.Forms.Label();
+            this.EasyTimerTextBox = new System.Windows.Forms.TextBox();
+            this.ProgressButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Easy_Playing_Field)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,6 +48,7 @@
             this.Easy_Playing_Field.TabIndex = 2;
             this.Easy_Playing_Field.TabStop = false;
             this.Easy_Playing_Field.Paint += new System.Windows.Forms.PaintEventHandler(this.Easy_Playing_Field_Draw);
+            this.Easy_Playing_Field.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Update_Easy_Form_Click);
             // 
             // Reset_Button
             // 
@@ -54,10 +58,11 @@
             this.Reset_Button.TabIndex = 10;
             this.Reset_Button.Text = "Reset";
             this.Reset_Button.UseVisualStyleBackColor = true;
+            this.Reset_Button.Click += new System.EventHandler(this.Reset_Button_Click);
             // 
             // Back_Button
             // 
-            this.Back_Button.Location = new System.Drawing.Point(640, 260);
+            this.Back_Button.Location = new System.Drawing.Point(640, 322);
             this.Back_Button.Name = "Back_Button";
             this.Back_Button.Size = new System.Drawing.Size(75, 23);
             this.Back_Button.TabIndex = 9;
@@ -81,11 +86,40 @@
             this.EasyTextBoxLabel.TabIndex = 12;
             this.EasyTextBoxLabel.Text = "Enter Number";
             // 
+            // EasyTimerTextBox
+            // 
+            this.EasyTimerTextBox.Location = new System.Drawing.Point(600, 12);
+            this.EasyTimerTextBox.Name = "EasyTimerTextBox";
+            this.EasyTimerTextBox.Size = new System.Drawing.Size(100, 20);
+            this.EasyTimerTextBox.TabIndex = 13;
+            // 
+            // ProgressButton
+            // 
+            this.ProgressButton.Location = new System.Drawing.Point(489, 200);
+            this.ProgressButton.Name = "ProgressButton";
+            this.ProgressButton.Size = new System.Drawing.Size(75, 23);
+            this.ProgressButton.TabIndex = 14;
+            this.ProgressButton.Text = "Progress";
+            this.ProgressButton.UseVisualStyleBackColor = true;
+            this.ProgressButton.Click += new System.EventHandler(this.ProgressButton_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(637, 306);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(92, 13);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "This will aslo save";
+            // 
             // Easy_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.ProgressButton);
+            this.Controls.Add(this.EasyTimerTextBox);
             this.Controls.Add(this.EasyTextBoxLabel);
             this.Controls.Add(this.EasyTextBox);
             this.Controls.Add(this.Reset_Button);
@@ -106,5 +140,8 @@
         private System.Windows.Forms.Button Back_Button;
         private System.Windows.Forms.TextBox EasyTextBox;
         private System.Windows.Forms.Label EasyTextBoxLabel;
+        private System.Windows.Forms.TextBox EasyTimerTextBox;
+        private System.Windows.Forms.Button ProgressButton;
+        private System.Windows.Forms.Label label1;
     }
 }
