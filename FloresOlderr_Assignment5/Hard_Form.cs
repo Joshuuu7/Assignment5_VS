@@ -174,6 +174,62 @@ namespace FloresOlderr_Assignment5
             }
         }
 
+        bool Filled()
+        {
+            for (int x = 0; x < 7; x++)
+            {
+                for (int y = 0; y < 7; y++)
+                {
+                    if (custom_summation_matrix[y, x] == 0)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        void Cheat_Click(object sender, EventArgs e)
+        {
+            //Graphics g = Hard_Playing_Field.CreateGraphics();
+
+            //int screen_X, screen_Y;
+            //if (!Filled())
+            //{
+            //    for (int x = 0; x < 7; x++)
+            //    {
+            //        screen_X = x * (Hard_Playing_Field.Width / 8);
+            //        for (int y = 0; y < 7; y++)
+            //        {
+            //            screen_Y = y * (Hard_Playing_Field.Height / 8);
+            //            if (custom_summation_matrix[y, x] == 0 && custom_summation_matrix[y, x] != summation_matrix[y, x])
+            //            {
+            //                custom_summation_matrix[y, x] = summation_matrix[y, x];
+            //                g.DrawString(custom_summation_matrix[y, x] + "", draw_Font_14_Bold, Hard_Correct_Green_Brush, screen_X + 3, screen_Y + 3);
+            //                CheatButton.Enabled = false;
+            //                return;
+            //            }
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    for (int x = 0; x < 7; x++)
+            //    {
+            //        screen_X = x * (Hard_Playing_Field.Width / 8);
+            //        for (int y = 0; y < 7; y++)
+            //        {
+            //            screen_Y = y * (Hard_Playing_Field.Height / 8);
+            //            custom_summation_matrix[y, x] = summation_matrix[y, x];
+            //            g.DrawString(custom_summation_matrix[y, x] + "", draw_Font_14_Bold, Hard_Correct_Green_Brush, screen_X + 3, screen_Y + 3);
+            //            //CheatButton.Enabled = false;
+                       
+            //        }
+            //    }
+            //}
+            //CheatButton.Enabled = true;
+        }
+
         private void Update_Hard_Form_Click(object sender, MouseEventArgs e)
         {
             Graphics g = Hard_Playing_Field.CreateGraphics();

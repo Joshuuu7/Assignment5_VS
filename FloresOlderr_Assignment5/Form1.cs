@@ -261,11 +261,13 @@ namespace FloresOlderr_Assignment5
                 if (hard_r < hard_len / 2)
                 {
                     if (hard_file_chars[hard_r] > 48)
-                    {
-                        hardData1.initially_displayed[hard_r / 7, hard_r % 7] = true;
+                    {                       
+                        hardData1.initially_displayed[hard_r / 7, hard_r % 7] = true;                       
                     }
 
                     hardData1.hard_custom_summation_matrix[hard_r / 7, hard_r % 7] = hard_file_chars[hard_r] - 48;
+
+                    hardData1.hard_original_summation_matrix[hard_r / 7, hard_r % 7] = hard_file_chars[hard_r] - 48;
                 }
                 else
                 {
@@ -274,6 +276,21 @@ namespace FloresOlderr_Assignment5
                 }
                 hard_r++;
             }
+            //for (int x = 0; x < 7; x++)
+            //{
+            //    for (int y = 0; y < 7; y++)
+            //    {
+            //        if (hardData1.hard_custom_summation_matrix[x, y] == 0)
+            //        {
+            //            hardData1.initially_displayed[x, y] = false;
+            //        }
+            //        else
+            //        {
+            //            hardData1.initially_displayed[x, y] = true; 
+            //        }
+            //        Console.WriteLine("hardData1.initially_displayed (x, y): "+ x + ", " + y + " value : "+ hardData1.initially_displayed[x, y]);
+            //    }
+            //}
 
             InitializeComponent();
         }
