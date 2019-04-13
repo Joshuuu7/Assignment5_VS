@@ -42,7 +42,7 @@
             // Easy_Playing_Field
             // 
             this.Easy_Playing_Field.BackColor = System.Drawing.Color.Black;
-            this.Easy_Playing_Field.Location = new System.Drawing.Point(12, 12);
+            this.Easy_Playing_Field.Location = new System.Drawing.Point(10, 10);
             this.Easy_Playing_Field.Name = "Easy_Playing_Field";
             this.Easy_Playing_Field.Size = new System.Drawing.Size(275, 275);
             this.Easy_Playing_Field.TabIndex = 2;
@@ -62,7 +62,7 @@
             // 
             // Back_Button
             // 
-            this.Back_Button.Location = new System.Drawing.Point(640, 322);
+            this.Back_Button.Location = new System.Drawing.Point(640, 320);
             this.Back_Button.Name = "Back_Button";
             this.Back_Button.Size = new System.Drawing.Size(75, 23);
             this.Back_Button.TabIndex = 9;
@@ -88,14 +88,14 @@
             // 
             // EasyTimerTextBox
             // 
-            this.EasyTimerTextBox.Location = new System.Drawing.Point(600, 12);
+            this.EasyTimerTextBox.Location = new System.Drawing.Point(600, 10);
             this.EasyTimerTextBox.Name = "EasyTimerTextBox";
             this.EasyTimerTextBox.Size = new System.Drawing.Size(100, 20);
             this.EasyTimerTextBox.TabIndex = 13;
             // 
             // ProgressButton
             // 
-            this.ProgressButton.Location = new System.Drawing.Point(489, 200);
+            this.ProgressButton.Location = new System.Drawing.Point(500, 200);
             this.ProgressButton.Name = "ProgressButton";
             this.ProgressButton.Size = new System.Drawing.Size(75, 23);
             this.ProgressButton.TabIndex = 14;
@@ -106,7 +106,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(637, 306);
+            this.label1.Location = new System.Drawing.Point(640, 300);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(92, 13);
             this.label1.TabIndex = 15;

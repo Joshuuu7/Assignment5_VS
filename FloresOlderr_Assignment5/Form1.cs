@@ -1,4 +1,22 @@
-﻿using System;
+﻿/********************************************************************************
+ * 
+ * Programmers: Joshua Flores, Adam Olderr
+ * 
+ * z-IDs: 1682720, 1753651
+ * 
+ * Assignment Number: 5
+ * 
+ * Due Date: April 12th, 2019
+ * 
+ * Class: CSCI504
+ * 
+ * Instructor: Daniel Rogness
+ * 
+ * Teaching Assistants: Aravind Muvva, Kiranmayi Manukonda
+ * 
+ * *******************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -30,16 +48,12 @@ namespace FloresOlderr_Assignment5
         public Form1()
         {
             easyData1 = new EasyData();
-            easyData2 = new EasyData();
-            easyData3 = new EasyData();
+
 
             mediumData1 = new MediumData();
-            mediumData2 = new MediumData();
-            mediumData3 = new MediumData();
+            mediumData1.startTime = DateTime.Now.Millisecond;
 
             hardData1 = new HardData();
-            hardData2 = new HardData();
-            hardData3 = new HardData();
 
             myWhitePen = new Pen(Color.White);
 
@@ -52,6 +66,7 @@ namespace FloresOlderr_Assignment5
             int med_rand = random.Next(3);
             int hard_rand = random.Next(3);
 
+            #region File Choice
             switch (easy_rand)
             {
                 case 0:
@@ -88,8 +103,10 @@ namespace FloresOlderr_Assignment5
                     hard_file = "hard/h1.txt";
                     break;
             }
+            #endregion
 
-            // EASY
+            // EASY Read
+            #region Easy Read
             string easy_digits = "0123456789";
 
             StringBuilder easy_file_data_builder = new StringBuilder();
@@ -148,8 +165,10 @@ namespace FloresOlderr_Assignment5
                 }
                 easy_r++;
             }
+            #endregion
 
-            // MEDIUM
+            // MEDIUM Read
+            #region Medium Read
             string med_digits = "0123456789";
 
             StringBuilder med_file_data_builder = new StringBuilder();
@@ -211,9 +230,10 @@ namespace FloresOlderr_Assignment5
                 }
                 med_r++;
             }
+            #endregion
 
-
-            // HARD
+            // HARD Read
+            #region Hard Read
             string hard_digits = "0123456789";
 
             StringBuilder hard_file_data_builder = new StringBuilder();
@@ -276,25 +296,21 @@ namespace FloresOlderr_Assignment5
                 }
                 hard_r++;
             }
-            //for (int x = 0; x < 7; x++)
-            //{
-            //    for (int y = 0; y < 7; y++)
-            //    {
-            //        if (hardData1.hard_custom_summation_matrix[x, y] == 0)
-            //        {
-            //            hardData1.initially_displayed[x, y] = false;
-            //        }
-            //        else
-            //        {
-            //            hardData1.initially_displayed[x, y] = true; 
-            //        }
-            //        Console.WriteLine("hardData1.initially_displayed (x, y): "+ x + ", " + y + " value : "+ hardData1.initially_displayed[x, y]);
-            //    }
-            //}
-
+            #endregion          
             InitializeComponent();
         }
 
+        /********************************************************************************
+         * 
+         * Method: InitializeEasyData
+         * 
+         * Arguments:
+         * 
+         * Return Type: void
+         * 
+         * Purpose: Initializes all easy files and reloads them.
+         * 
+         * *******************************************************************************/
         public void InitializeEasyData()
         {
             if (easyData1 == null)
@@ -379,11 +395,23 @@ namespace FloresOlderr_Assignment5
             }
         }
 
+        /********************************************************************************
+        * 
+        * Method: InitializeMediumData
+        * 
+        * Arguments:
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Initializes all medium files and reloads them.
+        * 
+        * *******************************************************************************/
         public void InitializeMediumData()
         {
             if (mediumData1 == null)
             {
                 mediumData1 = new MediumData();
+                mediumData1.startTime = DateTime.Now.Millisecond;
                 string med_file = "";
 
                 Random random = new Random();
@@ -468,6 +496,18 @@ namespace FloresOlderr_Assignment5
 
         }
 
+
+        /********************************************************************************
+        * 
+        * Method: InitializeHardData
+        * 
+        * Arguments:
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Initializes all hard files and reloads them.
+        * 
+        * *******************************************************************************/
         public void InitializeHardData()
         {
             if (hardData1 == null)
@@ -560,18 +600,41 @@ namespace FloresOlderr_Assignment5
             }
         }
 
+        /********************************************************************************
+        * 
+        * Constructor: Form1
+        * 
+        * Arguments: EasyData ED
+        * 
+        * *******************************************************************************/
         public Form1(EasyData ED)
         {            
             easyData1 = ED;
             myWhitePen = new Pen(Color.White);
             InitializeComponent();
-        }        
+        }
+
+        /********************************************************************************
+        * 
+        * Constructor: Form1
+        * 
+        * Arguments: MediumData MD
+        * 
+        * *******************************************************************************/
         public Form1(MediumData MD)
         {
             mediumData1 = MD;
             myWhitePen = new Pen(Color.White);
             InitializeComponent();
         }
+
+        /********************************************************************************
+        * 
+        * Constructor: Form1
+        * 
+        * Arguments: HardData HD
+        * 
+        * *******************************************************************************/
         public Form1(HardData HD)
         {
             hardData1 = HD;
@@ -579,6 +642,17 @@ namespace FloresOlderr_Assignment5
             InitializeComponent();
         }
 
+        /********************************************************************************
+       * 
+       * Method: Choose_Difficulty_Playing_Field
+       * 
+       * Arguments: object sender, MouseEventArgs e
+       * 
+       * Return Type: void
+       * 
+       * Purpose: Chooses difficulty for the form to be pulled up.
+       * 
+       * *******************************************************************************/
         private void Choose_Difficulty_Playing_Field(object sender, MouseEventArgs e)
         {
             Form1 form1 = new Form1();
@@ -616,7 +690,6 @@ namespace FloresOlderr_Assignment5
                 MessageBox.Show("Select difficulty level.", "ERROR");
             }
         }
-
     }
 
     public class EasyData
@@ -661,6 +734,9 @@ namespace FloresOlderr_Assignment5
         public int[] medium_custom_bottom_edge;
         public bool[,] should_display_number;
         public bool[,] initially_displayed;
+        public int startTime;
+        public int endTime;
+        public static int bestTimeEver = 0;
 
         public MediumData()
         {
@@ -673,6 +749,8 @@ namespace FloresOlderr_Assignment5
             initially_displayed = new bool[6, 6];
             medium_custom_right_edge = new int[5];
             medium_custom_bottom_edge = new int[5];
+            startTime = 0;
+            endTime = 0;
         }
     }
     public class HardData

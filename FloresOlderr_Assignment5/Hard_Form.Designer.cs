@@ -28,10 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.Hard_Playing_Field = new System.Windows.Forms.PictureBox();
             this.HardTextBox = new System.Windows.Forms.TextBox();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.Reset_Button = new System.Windows.Forms.Button();
             this.Back_Button = new System.Windows.Forms.Button();
             this.HardTextBoxLabel = new System.Windows.Forms.Label();
@@ -45,7 +43,7 @@
             // Hard_Playing_Field
             // 
             this.Hard_Playing_Field.BackColor = System.Drawing.Color.Black;
-            this.Hard_Playing_Field.Location = new System.Drawing.Point(12, 12);
+            this.Hard_Playing_Field.Location = new System.Drawing.Point(10, 10);
             this.Hard_Playing_Field.Name = "Hard_Playing_Field";
             this.Hard_Playing_Field.Size = new System.Drawing.Size(275, 275);
             this.Hard_Playing_Field.TabIndex = 2;
@@ -59,11 +57,6 @@
             this.HardTextBox.Name = "HardTextBox";
             this.HardTextBox.Size = new System.Drawing.Size(120, 20);
             this.HardTextBox.TabIndex = 3;
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // Reset_Button
             // 
@@ -96,7 +89,7 @@
             // 
             // ProgressButton
             // 
-            this.ProgressButton.Location = new System.Drawing.Point(515, 200);
+            this.ProgressButton.Location = new System.Drawing.Point(500, 200);
             this.ProgressButton.Name = "ProgressButton";
             this.ProgressButton.Size = new System.Drawing.Size(75, 23);
             this.ProgressButton.TabIndex = 10;
@@ -107,7 +100,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(637, 304);
+            this.label1.Location = new System.Drawing.Point(640, 300);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(92, 13);
             this.label1.TabIndex = 11;
@@ -115,14 +108,14 @@
             // 
             // HardTimerTextBox
             // 
-            this.HardTimerTextBox.Location = new System.Drawing.Point(600, 12);
+            this.HardTimerTextBox.Location = new System.Drawing.Point(600, 10);
             this.HardTimerTextBox.Name = "HardTimerTextBox";
             this.HardTimerTextBox.Size = new System.Drawing.Size(100, 20);
             this.HardTimerTextBox.TabIndex = 12;
             // 
             // CheatButton
             // 
-            this.CheatButton.Location = new System.Drawing.Point(515, 320);
+            this.CheatButton.Location = new System.Drawing.Point(500, 320);
             this.CheatButton.Name = "CheatButton";
             this.CheatButton.Size = new System.Drawing.Size(75, 23);
             this.CheatButton.TabIndex = 13;
@@ -156,7 +149,6 @@
 
         private System.Windows.Forms.PictureBox Hard_Playing_Field;
         private System.Windows.Forms.TextBox HardTextBox;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Button Reset_Button;
         private System.Windows.Forms.Button Back_Button;
         private System.Windows.Forms.Label HardTextBoxLabel;

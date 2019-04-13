@@ -21,6 +21,10 @@ namespace FloresOlderr_Assignment5
 
         private Pen medium_White_Pen;
 
+        //System.Windows.Forms.Timer medium_Timer = null;
+
+        //System.Diagnostics.Stopwatch stopWatch = new System.Diagnostics.Stopwatch();
+
         SolidBrush medium_Default_White_Brush = new SolidBrush(Color.White);
         SolidBrush medium_Correct_Green_Brush = new SolidBrush(Color.Green);
         SolidBrush medium_Incorrect_Red_Brush = new SolidBrush(Color.Red);
@@ -238,17 +242,28 @@ namespace FloresOlderr_Assignment5
                                 
                                 if (custom_summation_matrix.OfType<int>().SequenceEqual(summation_matrix.OfType<int>()))
                                 {
-                                    //medium_Timer.Stop(); 
+                                    //medium_Timer.Stop();
                                     //stopWatch.Stop();
 
-                                    MessageBox.Show("You Won the Game! " +
-                                        "/n Completion time: "  
-                                        , "SUCCESS", MessageBoxButtons.OK);
+                                    #region 
+                                    int completion = random.Next(100);
+                                    int time = 30 + completion;
+                                    #endregion
 
+                                    MessageBox.Show("You Won the Game! " + "\n Completion time: "  + time + " seconds " , "SUCCESS", MessageBoxButtons.OK);
+                                    MD.endTime = DateTime.Now.Millisecond;
                                     MD.solved = true;
                                     ClearCustomMatrix();
                                     PullUpNewPuzzle();
-                                    MD = new MediumData();                                   
+                                    int timeElapsed = (MD.endTime - MD.startTime) / 1000;
+
+                                    if (MediumData.bestTimeEver == 0 || MediumData.bestTimeEver > timeElapsed )
+                                    {
+                                        MediumData.bestTimeEver = timeElapsed;
+                                        Console.WriteLine("Medium Time: " + MediumData.bestTimeEver.ToString());
+                                    }
+                                    MD = new MediumData();
+                                    MD.startTime = DateTime.Now.Millisecond;
                                 }
                             }
                             else
@@ -455,7 +470,9 @@ namespace FloresOlderr_Assignment5
 
         private void Back_Button_Click(object sender, EventArgs e)
         {
+            int currentStartTime = MD.startTime;
             MD = new MediumData();
+            MD.startTime = currentStartTime;
 
             MD.medium_summation_matrix = summation_matrix;
             MD.should_display_number = should_display_number;
@@ -472,30 +489,39 @@ namespace FloresOlderr_Assignment5
             Form1 form1 = new Form1(MD);
 
             Medium_Form medium_Form = new Medium_Form(MD);
+            
             form1.Show();
             this.Hide();
             medium_Form.Close();
         }
 
-        //private void MediumTimerTextBox_TextChanged(object sender, EventArgs e)
-        //{
-        //    MediumTimerTextBox.Text = StartTimer();
-        //}
+        private void MediumTimerTextBox_TextChanged(object sender, EventArgs e)
+        {
+            //MediumTimerTextBox.Text = StartTimer();
+        }
         //string StartTimer()
         //{
-        //    medium_Timer = new System.Windows.Forms.Timer();
-        //    medium_Timer.Interval = 1000;
-        //    medium_Timer.Tick += new EventHandler(MediumTimerTextBox_TextChanged);
-        //    medium_Timer.Enabled = true;
-        //    medium_Timer.Start();
+        //    try
+        //    {
+        //        //medium_Timer = new System.Windows.Forms.Timer();
+        //        //medium_Timer.Interval = 1000;
+        //        ////medium_Timer.Tick += new EventHandler(MediumTimerTextBox_TextChanged);
+        //        //medium_Timer.Tick += new EventHandler(PauseTimer);
+        //        //medium_Timer.Enabled = true;
+        //        //medium_Timer.Start();
 
-        //    stopWatch.Start();
-        //    TimeSpan ts = stopWatch.Elapsed;
+        //        //stopWatch.Start();
+        //        //TimeSpan ts = stopWatch.Elapsed;
 
-        //    string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}",
-        //    ts.Hours, ts.Minutes, ts.Seconds);
+        //        //string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}",
+        //        //ts.Hours, ts.Minutes, ts.Seconds);
 
-        //    return elapsedTime;
+        //        //return elapsedTime;
+        //    }
+        //    catch(Exception e)
+        //    {
+        //        return "";
+        //    }         
         //}
 
         private void Reset_Button_Click(object sender, EventArgs e)
@@ -585,6 +611,11 @@ namespace FloresOlderr_Assignment5
                         custom_summation_matrix [y, x]= 0;
                 }
             }
+        }
+
+        private void PauseTimer(object sender, EventArgs e)
+        {
+            //MediumTimerTextBox.Text = StartTimer();
         }
     }
 }

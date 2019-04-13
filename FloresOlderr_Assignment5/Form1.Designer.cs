@@ -41,7 +41,7 @@
             this.DifficultyRadioGroup.Controls.Add(this.HardRadioButton);
             this.DifficultyRadioGroup.Controls.Add(this.MediumRadioButton);
             this.DifficultyRadioGroup.Controls.Add(this.EasyRadioButton);
-            this.DifficultyRadioGroup.Location = new System.Drawing.Point(543, 34);
+            this.DifficultyRadioGroup.Location = new System.Drawing.Point(325, 60);
             this.DifficultyRadioGroup.Name = "DifficultyRadioGroup";
             this.DifficultyRadioGroup.Size = new System.Drawing.Size(200, 100);
             this.DifficultyRadioGroup.TabIndex = 0;
@@ -83,7 +83,7 @@
             // 
             // DifficultyLevelButton
             // 
-            this.DifficultyLevelButton.Location = new System.Drawing.Point(543, 141);
+            this.DifficultyLevelButton.Location = new System.Drawing.Point(380, 200);
             this.DifficultyLevelButton.Name = "DifficultyLevelButton";
             this.DifficultyLevelButton.Size = new System.Drawing.Size(75, 23);
             this.DifficultyLevelButton.TabIndex = 2;
@@ -95,7 +95,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(784, 361);
             this.Controls.Add(this.DifficultyLevelButton);
             this.Controls.Add(this.DifficultyRadioGroup);
             this.Name = "Form1";
