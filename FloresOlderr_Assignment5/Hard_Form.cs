@@ -56,6 +56,7 @@ namespace FloresOlderr_Assignment5
         public Hard_Form(HardData HD)
         {
             this.HD = HD;
+
             summation_matrix = HD.hard_summation_matrix;
             should_display_number = HD.should_display_number;
             initially_displayed = HD.initially_displayed;
@@ -107,14 +108,14 @@ namespace FloresOlderr_Assignment5
                     hard_file = "hard/h1.txt";
                     break;
                 case 1:
-                    hard_file = "hard/h2.txt";
+                    hard_file = "hard/h1.txt";
                     break;
                 case 2:
-                    hard_file = "hard/h3.txt";
+                    hard_file = "hard/h1.txt";
                     break;
             }
 
-            string hard_digits = "0123458789";
+            string hard_digits = "0123456789";
 
             StringBuilder hard_file_data_builder = new StringBuilder();
             StringBuilder hard_solution = new StringBuilder();
@@ -293,7 +294,6 @@ namespace FloresOlderr_Assignment5
                             g.DrawString(numbers_array[i], draw_Font_14_Bold, Hard_Black_Brush, (X * (width / 8)) + 3, (Y * (height / 8)) + 3);
                             g.DrawString(numbers_array[i], input_Font_14, Hard_Black_Brush, (X * (width / 8)) + 3, (Y * (height / 8)) + 3);
                         }
-                        Console.WriteLine("Clicked (X , Y):  " + X + ", " +  Y);
                         if (X <= 6 && Y <= 6)
                         {
                             custom_summation_matrix[Y, X] = number;

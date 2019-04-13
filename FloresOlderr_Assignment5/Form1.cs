@@ -61,7 +61,7 @@ namespace FloresOlderr_Assignment5
                     easy_file = "easy/e2.txt";
                     break;
                 case 2:
-                    easy_file = "easy/e3.txt";
+                    easy_file = "easy/e2.txt";
                     break;
             }
             switch (med_rand)
@@ -73,7 +73,7 @@ namespace FloresOlderr_Assignment5
                     med_file = "medium/m2.txt";
                     break;
                 case 2:
-                    med_file = "medium/m3.txt";
+                    med_file = "medium/m2.txt";
                     break;
             }
             switch(hard_rand)
@@ -82,10 +82,10 @@ namespace FloresOlderr_Assignment5
                     hard_file = "hard/h1.txt";
                     break;
                 case 1:
-                    hard_file = "hard/h2.txt";
+                    hard_file = "hard/h1.txt";
                     break;
                 case 2:
-                    hard_file = "hard/h3.txt";
+                    hard_file = "hard/h1.txt";
                     break;
             }
 
@@ -295,6 +295,271 @@ namespace FloresOlderr_Assignment5
             InitializeComponent();
         }
 
+        public void InitializeEasyData()
+        {
+            if (easyData1 == null)
+            {
+                easyData1 = new EasyData();
+                Random random = new Random();
+                string easy_file = "";
+                int easy_rand = random.Next(3);
+
+                switch (easy_rand)
+                {
+                    case 0:
+                        easy_file = "easy/e1.txt";
+                        break;
+                    case 1:
+                        easy_file = "easy/e2.txt";
+                        break;
+                    case 2:
+                        easy_file = "easy/e1.txt";
+                        break;
+                }
+
+                // EASY
+                string easy_digits = "0123456789";
+
+                StringBuilder easy_file_data_builder = new StringBuilder();
+                StringBuilder easy_solution = new StringBuilder();
+
+                using (StreamReader easy_inFile = new StreamReader(easy_file))
+                {
+                    while (!easy_inFile.EndOfStream)
+                    {
+                        char ch = (char)easy_inFile.Read();
+                        if (easy_digits.IndexOf(ch) == -1)
+                        {
+                            easy_file_data_builder.Append('$');
+                            if (easy_file_data_builder.Equals("$$"))
+                            {
+
+                            }
+                        }
+                        else
+                        {
+                            easy_file_data_builder.Append(ch);
+                        }
+                    }
+                }
+
+                StringBuilder easy_digitsOnly = new StringBuilder();
+
+                foreach (char cha in easy_file_data_builder.ToString().ToCharArray())
+                {
+                    if (easy_digits.IndexOf(cha) >= 0)
+                    {
+                        easy_digitsOnly.Append(cha);
+                    }
+                }
+
+                char[] easy_file_chars = easy_digitsOnly.ToString().ToCharArray();
+
+                int easy_len = easy_file_chars.Length;
+
+                int easy_r = 0;
+
+                while (easy_r < easy_len)
+                {
+                    if (easy_r < easy_len / 2)
+                    {
+                        if (easy_file_chars[easy_r] > 48)
+                        {
+                            easyData1.initially_displayed[easy_r / 3, easy_r % 3] = true;
+                        }
+                        easyData1.easy_custom_summation_matrix[easy_r / 3, easy_r % 3] = easy_file_chars[easy_r] - 48;
+                    }
+                    else
+                    {
+                        int easy_t = easy_r - (easy_len / 2);
+                        easyData1.easy_summation_matrix[easy_t / 3, easy_t % 3] = easy_file_chars[easy_r] - 48;
+                    }
+                    easy_r++;
+                }
+            }
+        }
+
+        public void InitializeMediumData()
+        {
+            if (mediumData1 == null)
+            {
+                mediumData1 = new MediumData();
+                string med_file = "";
+
+                Random random = new Random();
+                int med_rand = random.Next(3);
+
+                switch (med_rand)
+                {
+                    case 0:
+                        med_file = "medium/m1.txt";
+                        break;
+                    case 1:
+                        med_file = "medium/m2.txt";
+                        break;
+                    case 2:
+                        med_file = "medium/m1.txt";
+                        break;
+                }
+
+                // MEDIUM
+                string med_digits = "0123456789";
+
+                StringBuilder med_file_data_builder = new StringBuilder();
+                StringBuilder med_solution = new StringBuilder();
+
+                using (StreamReader med_inFile = new StreamReader(med_file))
+                {
+                    while (!med_inFile.EndOfStream)
+                    {
+                        char ch = (char)med_inFile.Read();
+                        if (med_digits.IndexOf(ch) == -1)
+                        {
+                            med_file_data_builder.Append('$');
+                            if (med_file_data_builder.Equals("$$"))
+                            {
+
+                            }
+                        }
+                        else
+                        {
+                            med_file_data_builder.Append(ch);
+                        }
+                    }
+                }
+
+                StringBuilder med_digitsOnly = new StringBuilder();
+
+                foreach (char cha in med_file_data_builder.ToString().ToCharArray())
+                {
+                    if (med_digits.IndexOf(cha) >= 0)
+                    {
+                        med_digitsOnly.Append(cha);
+                    }
+                }
+
+                char[] med_file_chars = med_digitsOnly.ToString().ToCharArray();
+
+                int med_len = med_file_chars.Length;
+
+                int med_r = 0;
+
+                while (med_r < med_len)
+                {
+                    if (med_r < med_len / 2)
+                    {
+                        if (med_file_chars[med_r] > 48)
+                        {
+                            mediumData1.initially_displayed[med_r / 5, med_r % 5] = true;
+                        }
+
+                        mediumData1.medium_custom_summation_matrix[med_r / 5, med_r % 5] = med_file_chars[med_r] - 48;
+
+                        mediumData1.medium_original_summation_matrix[med_r / 5, med_r % 5] = med_file_chars[med_r] - 48;
+                    }
+                    else
+                    {
+                        int med_t = med_r - (med_len / 2);
+                        mediumData1.medium_summation_matrix[med_t / 5, med_t % 5] = med_file_chars[med_r] - 48;
+                    }
+                    med_r++;
+                }
+            }
+
+        }
+
+        public void InitializeHardData()
+        {
+            if (hardData1 == null)
+            {
+                hardData1 = new HardData();
+                // HARD
+
+                string hard_file = "";
+                Random random = new Random();
+                int hard_rand = random.Next(3);
+                switch (hard_rand)
+                {
+                    case 0:
+                        hard_file = "hard/h1.txt";
+                        break;
+                    case 1:
+                        hard_file = "hard/h1.txt";
+                        break;
+                    case 2:
+                        hard_file = "hard/h1.txt";
+                        break;
+                }
+
+                string hard_digits = "0123456789";
+
+                StringBuilder hard_file_data_builder = new StringBuilder();
+                StringBuilder hard_solution = new StringBuilder();
+
+
+                using (StreamReader hard_inFile = new StreamReader(hard_file))
+                {
+                    while (!hard_inFile.EndOfStream)
+                    {
+                        char ch = (char)hard_inFile.Read();
+                        if (hard_digits.IndexOf(ch) == -1)
+                        {
+                            hard_file_data_builder.Append('$');
+                            if (hard_file_data_builder.Equals("$$"))
+                            {
+
+                            }
+                        }
+                        else
+                        {
+                            hard_file_data_builder.Append(ch);
+                        }
+                    }
+                }
+
+                StringBuilder hard_digitsOnly = new StringBuilder();
+
+                foreach (char cha in hard_file_data_builder.ToString().ToCharArray())
+                {
+                    if (hard_digits.IndexOf(cha) >= 0)
+                    {
+                        hard_digitsOnly.Append(cha);
+                    }
+                }
+
+                char[] hard_file_chars = hard_digitsOnly.ToString().ToCharArray();
+
+                int hard_len = hard_file_chars.Length;
+
+                int hard_r = 0;
+
+                while (hard_r < hard_len)
+                {
+                    if (hard_r < hard_len / 2)
+                    {
+                        if (hard_file_chars[hard_r] > 48)
+                        {
+                            hardData1.initially_displayed[hard_r / 7, hard_r % 7] = true;
+                        }
+                        else
+                        {
+
+                        }
+
+                        hardData1.hard_custom_summation_matrix[hard_r / 7, hard_r % 7] = hard_file_chars[hard_r] - 48;
+
+                        hardData1.hard_original_summation_matrix[hard_r / 7, hard_r % 7] = hard_file_chars[hard_r] - 48;
+                    }
+                    else
+                    {
+                        int hard_t = hard_r - (hard_len / 2);
+                        hardData1.hard_summation_matrix[hard_t / 7, hard_t % 7] = hard_file_chars[hard_r] - 48;
+                    }
+                    hard_r++;
+                }
+            }
+        }
+
         public Form1(EasyData ED)
         {            
             easyData1 = ED;
@@ -323,6 +588,7 @@ namespace FloresOlderr_Assignment5
 
             if (EasyRB.Checked)
             {
+                InitializeEasyData();
                 Easy_Form easy_Form = new Easy_Form(easyData1);
                 easy_Form.Show();
                 this.Hide();
@@ -330,6 +596,7 @@ namespace FloresOlderr_Assignment5
             }
             else if (MediumRB.Checked)
             {
+                InitializeMediumData();
                 Medium_Form medium_Form1 = new Medium_Form(mediumData1);
                 medium_Form1.Show();
                 this.Hide();
@@ -338,6 +605,7 @@ namespace FloresOlderr_Assignment5
             }
             else if (HardRB.Checked)
             {
+                InitializeHardData();
                 Hard_Form hard_Form = new Hard_Form(hardData1);
                 hard_Form.Show();
                 this.Hide();

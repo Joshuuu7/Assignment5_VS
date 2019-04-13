@@ -109,7 +109,7 @@ namespace FloresOlderr_Assignment5
                     med_file = "medium/m2.txt";
                 break;
                 case 2:
-                    med_file = "medium/m3.txt";
+                    med_file = "medium/m2.txt";
                 break;
             }
 

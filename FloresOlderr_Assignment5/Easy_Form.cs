@@ -35,23 +35,23 @@ namespace FloresOlderr_Assignment5
         Random random = new Random();
         int rand;
 
-        bool[,] should_display_number = new bool[4, 4];
-        bool[,] initially_displayed = new bool[4, 4];
+        bool[,] should_display_number = new bool[6, 6];
+        bool[,] initially_displayed = new bool[6, 6];
 
         // Summation Matrix
-        int[,] summation_matrix = new int[3, 3];
+        int[,] summation_matrix = new int[5, 5];
 
         // Right Edge, Bottom Edge
-        int[] right_edge = new int[3];
-        int[] bottom_edge = new int[3];
+        int[] right_edge = new int[5];
+        int[] bottom_edge = new int[5];
 
         // Custom Summation Matrix
-        int[,] custom_summation_matrix = new int[3, 3];
-        int[,] original_summation_matrix = new int[3, 3];
+        int[,] custom_summation_matrix = new int[5, 5];
+        int[,] original_summation_matrix = new int[5, 5];
 
         // Custom Right Edge, Custom Bottom Edge
-        int[] custom_right_edge = new int[3];
-        int[] custom_bottom_edge = new int[3];
+        int[] custom_right_edge = new int[5];
+        int[] custom_bottom_edge = new int[5];
 
         public Easy_Form(EasyData ED)
         {
@@ -110,7 +110,7 @@ namespace FloresOlderr_Assignment5
                     easy_file = "easy/e2.txt";
                     break;
                 case 2:
-                    easy_file = "easy/e3.txt";
+                    easy_file = "easy/e2.txt";
                     break;
             }
 
@@ -154,6 +154,14 @@ namespace FloresOlderr_Assignment5
             int easy_len = easy_file_chars.Length;
 
             int easy_r = 0;
+
+            for (int x = 0; x < 3; x++)
+            {
+                for (int y = 0; y < 3; y ++)
+                {
+                    ED.initially_displayed[y, x] = false;
+                }
+            }
 
             while (easy_r < easy_len)
             {
@@ -328,7 +336,7 @@ namespace FloresOlderr_Assignment5
                 int col_sum = 0;
                 bool all_filled = true;
                 int desired_col_sum = bottom_edge[y];
-                for (int x = 0; x < 3; x++)
+                for (int x = 0; x < 4; x++)
                 {
                     col_sum += custom_summation_matrix[x, y];
                     if (custom_summation_matrix[x, y] == 0)
@@ -427,8 +435,7 @@ namespace FloresOlderr_Assignment5
             g.DrawLine(Easy_White_Pen, (Easy_Playing_Field.Width * 2 / 4), 0,
                                    (Easy_Playing_Field.Width * 2 / 4), Easy_Playing_Field.Height);
             g.DrawLine(Easy_White_Pen, (Easy_Playing_Field.Width * 3 / 4), 0,
-                                    (Easy_Playing_Field.Width * 3 / 4), Easy_Playing_Field.Height);
-
+                                   (Easy_Playing_Field.Width * 3 / 4), Easy_Playing_Field.Height);
 
             g.DrawLine(Easy_White_Pen, 0, (Easy_Playing_Field.Height * 1 / 4),
                                    Easy_Playing_Field.Width, (Easy_Playing_Field.Height * 1 / 4));
@@ -463,15 +470,15 @@ namespace FloresOlderr_Assignment5
             Easy_Form.Close();
         }
 
-        //private void EasyTimerTextBox_TextChanged(object sender, EventArgs e)
+        //private void MediumTimerTextBox_TextChanged(object sender, EventArgs e)
         //{
-        //    EasyTimerTextBox.Text = StartTimer();
+        //    MediumTimerTextBox.Text = StartTimer();
         //}
         //string StartTimer()
         //{
         //    Easy_Timer = new System.Windows.Forms.Timer();
         //    Easy_Timer.Interval = 1000;
-        //    Easy_Timer.Tick += new EventHandler(EasyTimerTextBox_TextChanged);
+        //    Easy_Timer.Tick += new EventHandler(MediumTimerTextBox_TextChanged);
         //    Easy_Timer.Enabled = true;
         //    Easy_Timer.Start();
 
@@ -517,14 +524,14 @@ namespace FloresOlderr_Assignment5
             g.DrawLine(Easy_White_Pen, (Easy_Playing_Field.Width * 2 / 4), 0,
                                    (Easy_Playing_Field.Width * 2 / 4), Easy_Playing_Field.Height);
             g.DrawLine(Easy_White_Pen, (Easy_Playing_Field.Width * 3 / 4), 0,
-                                   (Easy_Playing_Field.Width * 3 / 4), Easy_Playing_Field.Height);        
+                                   (Easy_Playing_Field.Width * 3 / 4), Easy_Playing_Field.Height);
 
             g.DrawLine(Easy_White_Pen, 0, (Easy_Playing_Field.Height * 1 / 4),
                                    Easy_Playing_Field.Width, (Easy_Playing_Field.Height * 1 / 4));
             g.DrawLine(Easy_White_Pen, 0, (Easy_Playing_Field.Height * 2 / 4),
                                    Easy_Playing_Field.Width, (Easy_Playing_Field.Height * 2 / 4));
             g.DrawLine(Easy_White_Pen, 0, (Easy_Playing_Field.Height * 3 / 4),
-                                   Easy_Playing_Field.Width, (Easy_Playing_Field.Height * 3 / 4));          
+                                   Easy_Playing_Field.Width, (Easy_Playing_Field.Height * 3 / 4));         
         }
 
         private void ProgressButton_Click(object sender, EventArgs e)
