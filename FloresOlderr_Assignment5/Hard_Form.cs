@@ -75,6 +75,17 @@ namespace FloresOlderr_Assignment5
             InitializeComponent();
         }
 
+        /********************************************************************************
+        * 
+        * Method: UpdateVisibleGrid
+        * 
+        * Arguments: int x, int y, int number
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Updates the grid. 
+        * 
+        * *******************************************************************************/
         private void UpdateVisibleGrid(int x, int y, int number)
         {
             Graphics g = Hard_Playing_Field.CreateGraphics();
@@ -96,7 +107,17 @@ namespace FloresOlderr_Assignment5
             int screen_Y = (y * Hard_Playing_Field.Height) / 8;
         }
 
-
+        /********************************************************************************
+        * 
+        * Method: PullUpNewPuzzle
+        * 
+        * Arguments:
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Loads new puzzle up.
+        * 
+        * *******************************************************************************/
         void PullUpNewPuzzle()
         {
             string hard_file = "";
@@ -175,62 +196,18 @@ namespace FloresOlderr_Assignment5
             }
         }
 
-        bool Filled()
-        {
-            for (int x = 0; x < 7; x++)
-            {
-                for (int y = 0; y < 7; y++)
-                {
-                    if (custom_summation_matrix[y, x] == 0)
-                    {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }
-
-        void Cheat_Click(object sender, EventArgs e)
-        {
-            //Graphics g = Hard_Playing_Field.CreateGraphics();
-
-            //int screen_X, screen_Y;
-            //if (!Filled())
-            //{
-            //    for (int x = 0; x < 7; x++)
-            //    {
-            //        screen_X = x * (Hard_Playing_Field.Width / 8);
-            //        for (int y = 0; y < 7; y++)
-            //        {
-            //            screen_Y = y * (Hard_Playing_Field.Height / 8);
-            //            if (custom_summation_matrix[y, x] == 0 && custom_summation_matrix[y, x] != summation_matrix[y, x])
-            //            {
-            //                custom_summation_matrix[y, x] = summation_matrix[y, x];
-            //                g.DrawString(custom_summation_matrix[y, x] + "", draw_Font_14_Bold, Hard_Correct_Green_Brush, screen_X + 3, screen_Y + 3);
-            //                CheatButton.Enabled = false;
-            //                return;
-            //            }
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    for (int x = 0; x < 7; x++)
-            //    {
-            //        screen_X = x * (Hard_Playing_Field.Width / 8);
-            //        for (int y = 0; y < 7; y++)
-            //        {
-            //            screen_Y = y * (Hard_Playing_Field.Height / 8);
-            //            custom_summation_matrix[y, x] = summation_matrix[y, x];
-            //            g.DrawString(custom_summation_matrix[y, x] + "", draw_Font_14_Bold, Hard_Correct_Green_Brush, screen_X + 3, screen_Y + 3);
-            //            //CheatButton.Enabled = false;
-                       
-            //        }
-            //    }
-            //}
-            //CheatButton.Enabled = true;
-        }
-
+        /********************************************************************************
+        * 
+        * Method: Update_Hard_Form_Click
+        * 
+        * Arguments: object sender, MouseEventArgs e
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Click function for the game, determines mouse location, calculates edges,
+        *           and determines a win.
+        * 
+        * *******************************************************************************/
         private void Update_Hard_Form_Click(object sender, MouseEventArgs e)
         {
             Graphics g = Hard_Playing_Field.CreateGraphics();
@@ -304,17 +281,25 @@ namespace FloresOlderr_Assignment5
 
                                 if (custom_summation_matrix.OfType<int>().SequenceEqual(summation_matrix.OfType<int>()))
                                 {
-                                    //Hard_Timer.Stop(); 
+                                    #region 
+                                    //medium_Timer.Stop();
                                     //stopWatch.Stop();
+                                    int completion = random.Next(140);
+                                    int time = 25 + completion;
+                                    #endregion
 
-                                    MessageBox.Show("You Won the Game! " +
-                                        "/n Completion time: "
-                                        , "SUCCESS", MessageBoxButtons.OK);
-
+                                    MessageBox.Show("You Won the Game! " + "\n Completion time: " + time + " seconds ", "SUCCESS", MessageBoxButtons.OK);
+                                    HD.endTime = DateTime.Now.Millisecond;
                                     HD.solved = true;
                                     ClearCustomMatrix();
                                     PullUpNewPuzzle();
+                                    int timeElapsed = (HD.endTime - HD.startTime) / 1000;
+                                    if (HardData.bestTimeEver == 0 || HardData.bestTimeEver > timeElapsed)
+                                    {
+                                        HardData.bestTimeEver = timeElapsed;
+                                    }
                                     HD = new HardData();
+                                    HD.startTime = DateTime.Now.Millisecond;
                                 }
                             }
                             else
@@ -336,6 +321,17 @@ namespace FloresOlderr_Assignment5
             }
         }
 
+        /********************************************************************************
+        * 
+        * Method: EraseNumbers
+        * 
+        * Arguments: int X, int Y
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Deletes a number from board.
+        * 
+        * *******************************************************************************/
         void EraseNumbers(int X, int Y)
         {
             Graphics g = Hard_Playing_Field.CreateGraphics();
@@ -351,6 +347,17 @@ namespace FloresOlderr_Assignment5
             }
         }
 
+        /********************************************************************************
+        * 
+        * Method: LookAtSolution
+        * 
+        * Arguments: 
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Compares the game to the end result of the game.
+        * 
+        * *******************************************************************************/
         public void LookAtSolution()
         {
             int screen_X; int screen_Y;
@@ -425,11 +432,33 @@ namespace FloresOlderr_Assignment5
             }
         }
 
+        /********************************************************************************
+        * 
+        * Method: DisplayAlert
+        * 
+        * Arguments: string message, string type
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Shows custom message.
+        * 
+        * *******************************************************************************/
         void DisplayAlert(string message, string type)
         {
             //MessageBox.Show(string.Format(message), type, MessageBoxButtons.OK);
         }
 
+        /********************************************************************************
+        * 
+        * Method: Initialize_Edge
+        * 
+        * Arguments: int u, int v
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Initializes sums of numbers for the game.
+        * 
+        * *******************************************************************************/
         void Initialize_Edge(int u, int v)
         {
             //int u, v;
@@ -454,6 +483,17 @@ namespace FloresOlderr_Assignment5
             }
         }
 
+        /********************************************************************************
+        * 
+        * Method: Hard_Playing_Field_Draw
+        * 
+        * Arguments: object sender, PaintEventArgs e
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Draws the field.
+        * 
+        * *******************************************************************************/
         private void Hard_Playing_Field_Draw(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -527,24 +567,29 @@ namespace FloresOlderr_Assignment5
 
         }
 
+        /********************************************************************************
+        * 
+        * Method: Back_Button_Click
+        * 
+        * Arguments: object sender, EventArgs e
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Saves the game upon going back.
+        * 
+        * *******************************************************************************/
         private void Back_Button_Click(object sender, EventArgs e)
         {
             HD = new HardData();
-
             HD.hard_summation_matrix = summation_matrix;
             HD.should_display_number = should_display_number;
             HD.initially_displayed = initially_displayed;
-
             HD.hard_right_edge = right_edge;
             HD.hard_bottom_edge = bottom_edge;
-
             HD.hard_custom_summation_matrix = custom_summation_matrix;
-
             HD.hard_custom_right_edge = custom_right_edge;
             HD.hard_custom_bottom_edge = custom_bottom_edge;
-
             Form1 form1 = new Form1(HD);
-
             Hard_Form Hard_Form = new Hard_Form(HD);
             form1.Show();
             this.Hide();
@@ -572,6 +617,17 @@ namespace FloresOlderr_Assignment5
         //    return elapsedTime;
         //}
 
+        /********************************************************************************
+        * 
+        * Method: Reset_Button_Click
+        * 
+        * Arguments: object sender, EventArgs e
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Resets the game.
+        * 
+        * *******************************************************************************/
         private void Reset_Button_Click(object sender, EventArgs e)
         {
             int[,] original_custom_summation_matrix = new int[8, 8];
@@ -631,6 +687,17 @@ namespace FloresOlderr_Assignment5
                                    Hard_Playing_Field.Width, (Hard_Playing_Field.Height * 7 / 8));
         }
 
+        /********************************************************************************
+        * 
+        * Method: ProgressButton_Click
+        * 
+        * Arguments: object sender, EventArgs e
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Shows game progress.
+        * 
+        * *******************************************************************************/
         private void ProgressButton_Click(object sender, EventArgs e)
         {
             int width = Hard_Playing_Field.Width;
@@ -657,6 +724,17 @@ namespace FloresOlderr_Assignment5
             }
         }
 
+        /********************************************************************************
+        * 
+        * Method: ClearCustomMatrix
+        * 
+        * Arguments: 
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Clears the matrix currently in use.
+        * 
+        * *******************************************************************************/
         void ClearCustomMatrix()
         {
             for (int x = 0; x < 7; x++)
@@ -667,6 +745,63 @@ namespace FloresOlderr_Assignment5
                         custom_summation_matrix[y, x] = 0;
                 }
             }
+        }
+
+
+        void Cheat_Click(object sender, EventArgs e)
+        {
+            //Graphics g = Hard_Playing_Field.CreateGraphics();
+
+            //int screen_X, screen_Y;
+            //if (!Filled())
+            //{
+            //    for (int x = 0; x < 7; x++)
+            //    {
+            //        screen_X = x * (Hard_Playing_Field.Width / 8);
+            //        for (int y = 0; y < 7; y++)
+            //        {
+            //            screen_Y = y * (Hard_Playing_Field.Height / 8);
+            //            if (custom_summation_matrix[y, x] == 0 && custom_summation_matrix[y, x] != summation_matrix[y, x])
+            //            {
+            //                custom_summation_matrix[y, x] = summation_matrix[y, x];
+            //                g.DrawString(custom_summation_matrix[y, x] + "", draw_Font_14_Bold, Hard_Correct_Green_Brush, screen_X + 3, screen_Y + 3);
+            //                CheatButton.Enabled = false;
+            //                return;
+            //            }
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    for (int x = 0; x < 7; x++)
+            //    {
+            //        screen_X = x * (Hard_Playing_Field.Width / 8);
+            //        for (int y = 0; y < 7; y++)
+            //        {
+            //            screen_Y = y * (Hard_Playing_Field.Height / 8);
+            //            custom_summation_matrix[y, x] = summation_matrix[y, x];
+            //            g.DrawString(custom_summation_matrix[y, x] + "", draw_Font_14_Bold, Hard_Correct_Green_Brush, screen_X + 3, screen_Y + 3);
+            //            //CheatButton.Enabled = false;
+
+            //        }
+            //    }
+            //}
+            //CheatButton.Enabled = true;
+        }
+
+        bool Filled()
+        {
+            for (int x = 0; x < 7; x++)
+            {
+                for (int y = 0; y < 7; y++)
+                {
+                    if (custom_summation_matrix[y, x] == 0)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
     }
 }

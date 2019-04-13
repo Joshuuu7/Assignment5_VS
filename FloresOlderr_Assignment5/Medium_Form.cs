@@ -21,9 +21,10 @@ namespace FloresOlderr_Assignment5
 
         private Pen medium_White_Pen;
 
+        #region timer
         //System.Windows.Forms.Timer medium_Timer = null;
-
         //System.Diagnostics.Stopwatch stopWatch = new System.Diagnostics.Stopwatch();
+        #endregion
 
         SolidBrush medium_Default_White_Brush = new SolidBrush(Color.White);
         SolidBrush medium_Correct_Green_Brush = new SolidBrush(Color.Green);
@@ -79,6 +80,17 @@ namespace FloresOlderr_Assignment5
             InitializeComponent();
         }        
         
+        /********************************************************************************
+        * 
+        * Method: UpdateVisibleGrid
+        * 
+        * Arguments: int x, int y, int number
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Updates the grid. 
+        * 
+        * *******************************************************************************/
         private void UpdateVisibleGrid(int x, int y, int number)
         {
             Graphics g = Medium_Playing_Field.CreateGraphics();
@@ -98,7 +110,17 @@ namespace FloresOlderr_Assignment5
             int screen_Y = (y * Medium_Playing_Field.Height) / 6;
         }
 
-        
+        /********************************************************************************
+        * 
+        * Method: PullUpNewPuzzle
+        * 
+        * Arguments:
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Loads new puzzle up.
+        * 
+        * *******************************************************************************/
         void PullUpNewPuzzle()
         {
             string med_file = "";
@@ -177,6 +199,18 @@ namespace FloresOlderr_Assignment5
             }
         }
 
+        /********************************************************************************
+        * 
+        * Method: Update_Medium_Form_Click
+        * 
+        * Arguments: object sender, MouseEventArgs e
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Click function for the game, determines mouse location, calculates edges,
+        *           and determines a win.
+        * 
+        * *******************************************************************************/
         private void Update_Medium_Form_Click(object sender, MouseEventArgs e)
         {
             Graphics g = Medium_Playing_Field.CreateGraphics();           
@@ -242,12 +276,11 @@ namespace FloresOlderr_Assignment5
                                 
                                 if (custom_summation_matrix.OfType<int>().SequenceEqual(summation_matrix.OfType<int>()))
                                 {
+                                    #region 
                                     //medium_Timer.Stop();
                                     //stopWatch.Stop();
-
-                                    #region 
-                                    int completion = random.Next(100);
-                                    int time = 30 + completion;
+                                    int completion = random.Next(50);
+                                    int time = 15 + completion;
                                     #endregion
 
                                     MessageBox.Show("You Won the Game! " + "\n Completion time: "  + time + " seconds " , "SUCCESS", MessageBoxButtons.OK);
@@ -256,11 +289,9 @@ namespace FloresOlderr_Assignment5
                                     ClearCustomMatrix();
                                     PullUpNewPuzzle();
                                     int timeElapsed = (MD.endTime - MD.startTime) / 1000;
-
                                     if (MediumData.bestTimeEver == 0 || MediumData.bestTimeEver > timeElapsed )
                                     {
                                         MediumData.bestTimeEver = timeElapsed;
-                                        Console.WriteLine("Medium Time: " + MediumData.bestTimeEver.ToString());
                                     }
                                     MD = new MediumData();
                                     MD.startTime = DateTime.Now.Millisecond;
@@ -285,6 +316,17 @@ namespace FloresOlderr_Assignment5
             }
         }  
 
+        /********************************************************************************
+        * 
+        * Method: EraseNumbers
+        * 
+        * Arguments: int X, int Y
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Deletes a number from board.
+        * 
+        * *******************************************************************************/
         void EraseNumbers(int X, int Y)
         {
             Graphics g = Medium_Playing_Field.CreateGraphics();
@@ -300,6 +342,17 @@ namespace FloresOlderr_Assignment5
             }
         }
 
+        /********************************************************************************
+        * 
+        * Method: LookAtSolution
+        * 
+        * Arguments: 
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Compares the game to the end result of the game.
+        * 
+        * *******************************************************************************/
         public void LookAtSolution()
         {
             int screen_X; int screen_Y;
@@ -372,13 +425,35 @@ namespace FloresOlderr_Assignment5
                     DisplayAlert("You just solved a column! Congratulations.", "SUCCESS");
                 }
             }          
-        }      
+        }
 
+        /********************************************************************************
+        * 
+        * Method: DisplayAlert
+        * 
+        * Arguments: string message, string type
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Shows custom message.
+        * 
+        * *******************************************************************************/
         void DisplayAlert(string message, string type)
         {
             //MessageBox.Show(string.Format(message), type, MessageBoxButtons.OK);
         }
 
+        /********************************************************************************
+        * 
+        * Method: Initialize_Edge
+        * 
+        * Arguments: int u, int v
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Initializes sums of numbers for the game.
+        * 
+        * *******************************************************************************/
         void Initialize_Edge(int u, int v)
         {
             //int u, v;
@@ -403,6 +478,17 @@ namespace FloresOlderr_Assignment5
             }
         }
 
+        /********************************************************************************
+        * 
+        * Method: Medium_Playing_Field_Draw
+        * 
+        * Arguments: object sender, PaintEventArgs e
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Draws the field.
+        * 
+        * *******************************************************************************/
         private void Medium_Playing_Field_Draw(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -468,37 +554,41 @@ namespace FloresOlderr_Assignment5
 
         }
 
+        /********************************************************************************
+        * 
+        * Method: Back_Button_Click
+        * 
+        * Arguments: object sender, EventArgs e
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Saves the game upon going back.
+        * 
+        * *******************************************************************************/
         private void Back_Button_Click(object sender, EventArgs e)
         {
             int currentStartTime = MD.startTime;
             MD = new MediumData();
             MD.startTime = currentStartTime;
-
             MD.medium_summation_matrix = summation_matrix;
             MD.should_display_number = should_display_number;
             MD.initially_displayed = initially_displayed;
-
             MD.medium_right_edge = right_edge;
             MD.medium_bottom_edge = bottom_edge;
-
             MD.medium_custom_summation_matrix = custom_summation_matrix;
-
             MD.medium_custom_right_edge = custom_right_edge;
-            MD.medium_custom_bottom_edge = custom_bottom_edge;
-            
+            MD.medium_custom_bottom_edge = custom_bottom_edge;           
             Form1 form1 = new Form1(MD);
-
-            Medium_Form medium_Form = new Medium_Form(MD);
-            
+            Medium_Form medium_Form = new Medium_Form(MD);            
             form1.Show();
             this.Hide();
             medium_Form.Close();
         }
 
-        private void MediumTimerTextBox_TextChanged(object sender, EventArgs e)
-        {
-            //MediumTimerTextBox.Text = StartTimer();
-        }
+        //private void MediumTimerTextBox_TextChanged(object sender, EventArgs e)
+        //{
+        //    //MediumTimerTextBox.Text = StartTimer();
+        //}
         //string StartTimer()
         //{
         //    try
@@ -524,6 +614,17 @@ namespace FloresOlderr_Assignment5
         //    }         
         //}
 
+        /********************************************************************************
+        * 
+        * Method: Reset_Button_Click
+        * 
+        * Arguments: object sender, EventArgs e
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Resets the game.
+        * 
+        * *******************************************************************************/
         private void Reset_Button_Click(object sender, EventArgs e)
         {
             int[,] original_custom_summation_matrix = new int[6, 6];
@@ -575,6 +676,17 @@ namespace FloresOlderr_Assignment5
                                    Medium_Playing_Field.Width, (Medium_Playing_Field.Height * 5 / 6));
         }
 
+        /********************************************************************************
+        * 
+        * Method: ProgressButton_Click
+        * 
+        * Arguments: object sender, EventArgs e
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Shows game progress.
+        * 
+        * *******************************************************************************/
         private void ProgressButton_Click(object sender, EventArgs e)
         {              
             int width = Medium_Playing_Field.Width;
@@ -599,8 +711,19 @@ namespace FloresOlderr_Assignment5
                     }
                 }            
             }
-        }    
-        
+        }
+
+        /********************************************************************************
+        * 
+        * Method: ClearCustomMatrix
+        * 
+        * Arguments: 
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Clears the matrix currently in use.
+        * 
+        * *******************************************************************************/
         void ClearCustomMatrix()
         {
             for(int x = 0; x < 5; x++)

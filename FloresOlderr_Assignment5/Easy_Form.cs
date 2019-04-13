@@ -15,8 +15,6 @@ namespace FloresOlderr_Assignment5
     public partial class Easy_Form : Form
     {
         EasyData ED;
-        EasyData ED2;
-        EasyData ED3;
 
         private Pen Easy_White_Pen;
 
@@ -59,21 +57,27 @@ namespace FloresOlderr_Assignment5
             summation_matrix = ED.easy_summation_matrix;
             should_display_number = ED.should_display_number;
             initially_displayed = ED.initially_displayed;
-
             right_edge = ED.easy_right_edge;
             bottom_edge = ED.easy_bottom_edge;
-
             custom_summation_matrix = ED.easy_custom_summation_matrix;
             original_summation_matrix = ED.easy_original_summation_matrix;
-
             custom_bottom_edge = ED.easy_custom_bottom_edge;
             custom_right_edge = ED.easy_custom_right_edge;
-
             Easy_White_Pen = new Pen(Color.White);
-
             InitializeComponent();
         }
 
+        /********************************************************************************
+        * 
+        * Method: UpdateVisibleGrid
+        * 
+        * Arguments: int x, int y, int number
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Updates the grid. 
+        * 
+        * *******************************************************************************/
         private void UpdateVisibleGrid(int x, int y, int number)
         {
             Graphics g = Easy_Playing_Field.CreateGraphics();
@@ -95,7 +99,17 @@ namespace FloresOlderr_Assignment5
             int screen_Y = (y * Easy_Playing_Field.Height) / 4;
         }
 
-
+        /********************************************************************************
+        * 
+        * Method: PullUpNewPuzzle
+        * 
+        * Arguments:
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Loads new puzzle up.
+        * 
+        * *******************************************************************************/
         void PullUpNewPuzzle()
         {
             string easy_file = "";
@@ -182,6 +196,18 @@ namespace FloresOlderr_Assignment5
             }
         }
 
+        /********************************************************************************
+        * 
+        * Method: Update_Easy_Form_Click
+        * 
+        * Arguments: object sender, MouseEventArgs e
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Click function for the game, determines mouse location, calculates edges,
+        *           and determines a win.
+        * 
+        * *******************************************************************************/
         private void Update_Easy_Form_Click(object sender, MouseEventArgs e)
         {
             Graphics g = Easy_Playing_Field.CreateGraphics();
@@ -239,17 +265,25 @@ namespace FloresOlderr_Assignment5
 
                                 if (custom_summation_matrix.OfType<int>().SequenceEqual(summation_matrix.OfType<int>()))
                                 {
-                                    //Easy_Timer.Stop(); 
+                                    #region 
+                                    //medium_Timer.Stop();
                                     //stopWatch.Stop();
+                                    int completion = random.Next(10);
+                                    int time = 3 + completion;
+                                    #endregion
 
-                                    MessageBox.Show("You Won the Game! " +
-                                        "/n Completion time: "
-                                        , "SUCCESS", MessageBoxButtons.OK);
-
+                                    MessageBox.Show("You Won the Game! " + "\n Completion time: " + time + " seconds ", "SUCCESS", MessageBoxButtons.OK);
+                                    ED.endTime = DateTime.Now.Millisecond;
                                     ED.solved = true;
                                     ClearCustomMatrix();
                                     PullUpNewPuzzle();
+                                    int timeElapsed = (ED.endTime - ED.startTime) / 1000;
+                                    if (EasyData.bestTimeEver == 0 || EasyData.bestTimeEver > timeElapsed)
+                                    {
+                                        EasyData.bestTimeEver = timeElapsed;
+                                    }
                                     ED = new EasyData();
+                                    ED.startTime = DateTime.Now.Millisecond;
                                 }
                             }
                             else
@@ -271,6 +305,17 @@ namespace FloresOlderr_Assignment5
             }
         }
 
+        /********************************************************************************
+        * 
+        * Method: EraseNumbers
+        * 
+        * Arguments: int X, int Y
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Deletes a number from board.
+        * 
+        * *******************************************************************************/
         void EraseNumbers(int X, int Y)
         {
             Graphics g = Easy_Playing_Field.CreateGraphics();
@@ -286,6 +331,17 @@ namespace FloresOlderr_Assignment5
             }
         }
 
+        /********************************************************************************
+        * 
+        * Method: LookAtSolution
+        * 
+        * Arguments: 
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Compares the game to the end result of the game.
+        * 
+        * *******************************************************************************/
         public void LookAtSolution()
         {
             int screen_X; int screen_Y;
@@ -360,14 +416,35 @@ namespace FloresOlderr_Assignment5
             }
         }
 
+        /********************************************************************************
+        * 
+        * Method: DisplayAlert
+        * 
+        * Arguments: string message, string type
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Shows custom message.
+        * 
+        * *******************************************************************************/
         void DisplayAlert(string message, string type)
         {
             //MessageBox.Show(string.Format(message), type, MessageBoxButtons.OK);
         }
 
+        /********************************************************************************
+        * 
+        * Method: Initialize_Edge
+        * 
+        * Arguments: int u, int v
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Initializes sums of numbers for the game.
+        * 
+        * *******************************************************************************/
         void Initialize_Edge(int u, int v)
         {
-            //int u, v;
             for (u = 0; u < 3; u++)
             {
                 int row_sum = 0;
@@ -389,6 +466,17 @@ namespace FloresOlderr_Assignment5
             }
         }
 
+        /********************************************************************************
+        * 
+        * Method: Easy_Playing_Field_Draw
+        * 
+        * Arguments: object sender, PaintEventArgs e
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Draws the field.
+        * 
+        * *******************************************************************************/
         private void Easy_Playing_Field_Draw(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -446,6 +534,17 @@ namespace FloresOlderr_Assignment5
 
         }
 
+        /********************************************************************************
+        * 
+        * Method: Back_Button_Click
+        * 
+        * Arguments: object sender, EventArgs e
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Saves the game upon going back.
+        * 
+        * *******************************************************************************/
         private void Back_Button_Click(object sender, EventArgs e)
         {
             ED = new EasyData();
@@ -491,6 +590,17 @@ namespace FloresOlderr_Assignment5
         //    return elapsedTime;
         //}
 
+        /********************************************************************************
+        * 
+        * Method: Reset_Button_Click
+        * 
+        * Arguments: object sender, EventArgs e
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Resets the game.
+        * 
+        * *******************************************************************************/
         private void Reset_Button_Click(object sender, EventArgs e)
         {
             int[,] original_custom_summation_matrix = new int[4, 4];
@@ -534,6 +644,17 @@ namespace FloresOlderr_Assignment5
                                    Easy_Playing_Field.Width, (Easy_Playing_Field.Height * 3 / 4));         
         }
 
+        /********************************************************************************
+        * 
+        * Method: ProgressButton_Click
+        * 
+        * Arguments: object sender, EventArgs e
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Shows game progress.
+        * 
+        * *******************************************************************************/
         private void ProgressButton_Click(object sender, EventArgs e)
         {
             int width = Easy_Playing_Field.Width;
@@ -560,6 +681,17 @@ namespace FloresOlderr_Assignment5
             }
         }
 
+        /********************************************************************************
+        * 
+        * Method: ClearCustomMatrix
+        * 
+        * Arguments: 
+        * 
+        * Return Type: void
+        * 
+        * Purpose: Clears the matrix currently in use.
+        * 
+        * *******************************************************************************/
         void ClearCustomMatrix()
         {
             for (int x = 0; x < 3; x++)

@@ -34,33 +34,28 @@ namespace FloresOlderr_Assignment5
         private static Pen myWhitePen;
 
         EasyData easyData1;
-        EasyData easyData2;
-        EasyData easyData3;
 
         MediumData mediumData1;
-        MediumData mediumData2;
-        MediumData mediumData3;
 
         HardData hardData1;
-        HardData hardData2;
-        HardData hardData3;
 
         public Form1()
         {
             easyData1 = new EasyData();
-
+            easyData1.startTime = DateTime.Now.Millisecond;
 
             mediumData1 = new MediumData();
             mediumData1.startTime = DateTime.Now.Millisecond;
 
             hardData1 = new HardData();
+            hardData1.startTime = DateTime.Now.Millisecond;
 
             myWhitePen = new Pen(Color.White);
 
             string easy_file = "";
             string med_file = "";
             string hard_file = "";
-           
+
             Random random = new Random();
             int easy_rand = random.Next(3);
             int med_rand = random.Next(3);
@@ -706,6 +701,9 @@ namespace FloresOlderr_Assignment5
         public int[] easy_custom_bottom_edge;
         public bool[,] should_display_number;
         public bool[,] initially_displayed;
+        public int startTime;
+        public int endTime;
+        public static int bestTimeEver = 0;
 
         public EasyData()
         {
@@ -720,6 +718,7 @@ namespace FloresOlderr_Assignment5
             easy_custom_bottom_edge = new int[3];
         }
     }
+
     public class MediumData
     {
         public Medium_Form medium_Form;
@@ -753,6 +752,7 @@ namespace FloresOlderr_Assignment5
             endTime = 0;
         }
     }
+
     public class HardData
     {
         public Hard_Form hard_Form;
@@ -767,6 +767,9 @@ namespace FloresOlderr_Assignment5
         public int[] hard_custom_bottom_edge;
         public bool[,] should_display_number;
         public bool[,] initially_displayed;
+        public int startTime;
+        public int endTime;
+        public static int bestTimeEver = 0;
 
         public HardData()
         {
